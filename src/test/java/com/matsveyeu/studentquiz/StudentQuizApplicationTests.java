@@ -1,4 +1,4 @@
-package com.matsveyeu.testproject;
+package com.matsveyeu.studentquiz;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class TestProjectApplicationTests {
+public class StudentQuizApplicationTests {
 
 	@Test
 	public void contextLoads() {
