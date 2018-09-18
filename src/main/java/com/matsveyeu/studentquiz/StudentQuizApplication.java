@@ -1,12 +1,12 @@
-package com.matsveyeu.testproject;
+package com.matsveyeu.studentquiz;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TestProjectApplication {
+public class StudentQuizApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TestProjectApplication.class, args);
+		SpringApplication.run(StudentQuizApplication.class, args);
 	}
 }
