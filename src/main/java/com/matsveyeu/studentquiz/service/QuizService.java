@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface QuizService {
 
-    Quiz findById(Long id);
+    Quiz findById(String id);
 
     Collection<Quiz> findAll();
 
