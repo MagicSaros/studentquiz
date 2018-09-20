@@ -7,19 +7,9 @@ import java.util.Map;
 
 public class Question {
 
-    private Long id;
-
     private String text;
 
     private Map<String, Boolean> options;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getText() {
         return text;
@@ -46,7 +36,6 @@ public class Question {
         Question question = (Question) o;
 
         return new EqualsBuilder()
-                .append(id, question.id)
                 .append(text, question.text)
                 .append(options, question.options)
                 .isEquals();
@@ -55,7 +44,6 @@ public class Question {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(id)
                 .append(text)
                 .append(options)
                 .toHashCode();
@@ -64,7 +52,6 @@ public class Question {
     @Override
     public String toString() {
         return "Question{" +
-                "id=" + id +
                 ", text='" + text + '\'' +
                 ", options=" + options +
                 '}';

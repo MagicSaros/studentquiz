@@ -1,8 +1,10 @@
 package com.matsveyeu.studentquiz.service.implementation;
 
+import com.matsveyeu.studentquiz.entity.Category;
 import com.matsveyeu.studentquiz.entity.Quiz;
 import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
 import com.matsveyeu.studentquiz.repository.QuizRepository;
+import com.matsveyeu.studentquiz.service.CategoryService;
 import com.matsveyeu.studentquiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,6 +16,9 @@ public class QuizServiceImpl implements QuizService {
 
     @Autowired
     private QuizRepository quizRepository;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @Override
     public Quiz findById(Long id) {
@@ -30,6 +35,14 @@ public class QuizServiceImpl implements QuizService {
         if (quiz == null) {
             throw new EntityNotFoundException("Entity is null");
         }
+
+        Long id = quizRepository.count() + 1;
+        quiz.setId(id);
+
+        Category category = quiz.getCategory();
+        category = categoryService.findById(category.getId());
+        quiz.setCategory(category);
+
         return quizRepository.save(quiz);
     }
 
