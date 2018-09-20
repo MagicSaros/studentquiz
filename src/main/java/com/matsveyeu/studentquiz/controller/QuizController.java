@@ -24,7 +24,7 @@ public class QuizController {
     private QuizDtoConverter quizDtoConverter;
 
     @GetMapping("/{id}")
-    public ResponseEntity<QuizDto> getQuiz(@PathVariable Long id) {
+    public ResponseEntity<QuizDto> getQuiz(@PathVariable String id) {
         Quiz quiz = quizService.findById(id);
         QuizDto dto = quizDtoConverter.fromEntityToDto(quiz);
 
@@ -52,7 +52,7 @@ public class QuizController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<QuizDto> updateQuiz(@PathVariable Long id, @Valid @RequestBody QuizDto dto) {
+    public ResponseEntity<QuizDto> updateQuiz(@PathVariable String id, @Valid @RequestBody QuizDto dto) {
         quizService.findById(id);
 
         Quiz quiz = quizDtoConverter.fromDtoToEntity(dto);
@@ -63,7 +63,7 @@ public class QuizController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<QuizDto> deleteQuiz(@PathVariable Long id) {
+    public ResponseEntity<QuizDto> deleteQuiz(@PathVariable String id) {
         Quiz quiz = quizService.findById(id);
         quizService.remove(quiz);
 

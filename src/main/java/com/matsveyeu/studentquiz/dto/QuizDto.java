@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class QuizDto {
 
-    private Long id;
+    private String id;
 
     @NotEmpty
     private String name;
@@ -19,11 +19,11 @@ public class QuizDto {
     @Size(min = 1)
     private Set<QuestionDto> questions;
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

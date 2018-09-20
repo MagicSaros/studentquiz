@@ -6,7 +6,7 @@ import java.util.Collection;
 
 public interface CategoryService {
 
-    Category findById(Long id);
+    Category findById(String id);
 
     Collection<Category> findAll();
 
@@ -15,4 +15,6 @@ public interface CategoryService {
     Category update(Category category);
 
     void remove(Category category);
+
+    Category findOne(Category category);
 }

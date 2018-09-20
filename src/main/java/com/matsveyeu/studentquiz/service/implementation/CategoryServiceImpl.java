@@ -5,6 +5,8 @@ import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
 import com.matsveyeu.studentquiz.repository.CategoryRepository;
 import com.matsveyeu.studentquiz.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -16,7 +18,7 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public Category findById(Long id) {
+    public Category findById(String id) {
         return categoryRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such id"));
     }
 
@@ -30,9 +32,6 @@ public class CategoryServiceImpl implements CategoryService {
         if (category == null) {
             throw new EntityNotFoundException("Entity is null");
         }
-
-        Long id = categoryRepository.count() + 1;
-        category.setId(id);
 
         return categoryRepository.save(category);
     }
@@ -51,5 +50,14 @@ public class CategoryServiceImpl implements CategoryService {
             throw new EntityNotFoundException("Entity is null");
         }
         categoryRepository.delete(category);
+    }
+
+    @Override
+    public Category findOne(Category category) {
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("name");
+        return categoryRepository
+                .findOne(Example.of(category, matcher))
+                .orElseThrow(() -> new EntityNotFoundException("Category not found"));
     }
 }

@@ -33,13 +33,10 @@ public class StudentQuizApplication implements CommandLineRunner {
         quizRepository.deleteAll();
 
         Category category1 = new Category();
-        category1.setId(1L);
         category1.setName("Java");
         Category category2 = new Category();
-        category2.setId(2L);
         category2.setName("Javascript");
         Category category3 = new Category();
-        category3.setId(3L);
         category3.setName("Python");
 
         categoryRepository.save(category1);
@@ -58,13 +55,10 @@ public class StudentQuizApplication implements CommandLineRunner {
         questions.add(question);
 
         Quiz quiz = new Quiz();
-        quiz.setId(1L);
         quiz.setCategory(category1);
         quiz.setName("Java quiz");
         quiz.setQuestions(questions);
 
         quizRepository.save(quiz);
-
-        System.out.println(quizRepository.findById(1L));
     }
 }

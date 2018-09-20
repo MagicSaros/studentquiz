@@ -21,7 +21,7 @@ public class QuizServiceImpl implements QuizService {
     private CategoryService categoryService;
 
     @Override
-    public Quiz findById(Long id) {
+    public Quiz findById(String id) {
         return quizRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such id"));
     }
 
@@ -33,14 +33,14 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public Quiz add(Quiz quiz) {
         if (quiz == null) {
-            throw new EntityNotFoundException("Entity is null");
+            throw new EntityNotFoundException("Quiz entity is null");
         }
 
-        Long id = quizRepository.count() + 1;
-        quiz.setId(id);
+//        String id = quizRepository.count() + 1;
+//        quiz.setId(id);
 
         Category category = quiz.getCategory();
-        category = categoryService.findById(category.getId());
+        category = categoryService.findOne(category);
         quiz.setCategory(category);
 
         return quizRepository.save(quiz);
@@ -49,7 +49,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public Quiz update(Quiz quiz) {
         if (quiz == null) {
-            throw new EntityNotFoundException("Entity is null");
+            throw new EntityNotFoundException("Quiz entity is null");
         }
         return quizRepository.save(quiz);
     }
@@ -57,7 +57,7 @@ public class QuizServiceImpl implements QuizService {
     @Override
     public void remove(Quiz quiz) {
         if (quiz == null) {
-            throw new EntityNotFoundException("Entity is null");
+            throw new EntityNotFoundException("Quiz entity is null");
         }
         quizRepository.delete(quiz);
     }
