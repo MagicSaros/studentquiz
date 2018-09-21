@@ -8,11 +8,8 @@ import java.util.Set;
 public class Quiz {
 
     private String id;
-
     private String name;
-
     private Category category;
-
     private Set<Question> questions;
 
     public String getId() {

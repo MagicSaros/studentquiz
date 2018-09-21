@@ -6,7 +6,6 @@ public class CategoryDto {
 
     private String id;
 
-    @NotEmpty
     private String name;
 
     public String getId() {
@@ -17,6 +16,7 @@ public class CategoryDto {
         this.id = id;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }

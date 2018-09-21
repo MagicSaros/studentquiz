@@ -8,15 +8,9 @@ import java.util.Set;
 public class QuizDto {
 
     private String id;
-
-    @NotEmpty
     private String name;
-
-    @NotNull
     private CategoryDto category;
 
-    @NotNull
-    @Size(min = 1)
     private Set<QuestionDto> questions;
 
     public String getId() {
@@ -27,6 +21,7 @@ public class QuizDto {
         this.id = id;
     }
 
+    @NotEmpty
     public String getName() {
         return name;
     }
@@ -35,7 +30,8 @@ public class QuizDto {
         this.name = name;
     }
 
-    public @NotNull CategoryDto getCategory() {
+    @NotNull
+    public CategoryDto getCategory() {
         return category;
     }
 
@@ -43,6 +39,8 @@ public class QuizDto {
         this.category = category;
     }
 
+    @NotNull
+    @Size(min = 1)
     public Set<QuestionDto> getQuestions() {
         return questions;
     }
