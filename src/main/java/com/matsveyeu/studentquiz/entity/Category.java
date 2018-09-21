@@ -6,7 +6,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 public class Category {
 
     private String id;
-
     private String name;
 
     public String getId() {

@@ -7,13 +7,10 @@ import java.util.Map;
 
 public class QuestionDto {
 
-    @NotEmpty
     private String text;
-
-    @NotNull
-    @Size(min = 2, max = 10)
     private Map<String, Boolean> options;
 
+    @NotEmpty
     public String getText() {
         return text;
     }
@@ -22,6 +19,8 @@ public class QuestionDto {
         this.text = text;
     }
 
+    @NotNull
+    @Size(min = 2, max = 10)
     public Map<String, Boolean> getOptions() {
         return options;
     }

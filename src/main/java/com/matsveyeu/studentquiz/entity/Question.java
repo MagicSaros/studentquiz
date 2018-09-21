@@ -8,7 +8,6 @@ import java.util.Map;
 public class Question {
 
     private String text;
-
     private Map<String, Boolean> options;
 
     public String getText() {
