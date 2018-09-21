@@ -36,9 +36,6 @@ public class QuizServiceImpl implements QuizService {
             throw new EntityNotFoundException("Quiz entity is null");
         }
 
-//        String id = quizRepository.count() + 1;
-//        quiz.setId(id);
-
         Category category = quiz.getCategory();
         category = categoryService.findOne(category);
         quiz.setCategory(category);

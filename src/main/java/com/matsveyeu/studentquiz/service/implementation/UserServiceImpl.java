@@ -1,0 +1,55 @@
+package com.matsveyeu.studentquiz.service.implementation;
+
+import com.matsveyeu.studentquiz.entity.User;
+import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
+import com.matsveyeu.studentquiz.exception.IllegalOperationException;
+import com.matsveyeu.studentquiz.repository.UserRepository;
+import com.matsveyeu.studentquiz.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.stereotype.Service;
+
+import java.util.Collection;
+import java.util.Optional;
+
+@Service
+public class UserServiceImpl implements UserService {
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Override
+    public User findById(String id) {
+        return userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("No such id"));
+    }
+
+    @Override
+    public Collection<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    @Override
+    public User add(User user) {
+        if (user == null) {
+            throw new EntityNotFoundException("User entity is null");
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
+    public User update(User user) {
+        if (user == null) {
+            throw new EntityNotFoundException("User entity is null");
+        }
+        return userRepository.save(user);
+    }
+
+    @Override
+    public void remove(User user) {
+        if (user == null) {
+            throw new EntityNotFoundException("User entity is null");
+        }
+        userRepository.delete(user);
+    }
+}

@@ -1,6 +1,6 @@
 package com.matsveyeu.studentquiz.entity;
 
-import com.matsveyeu.studentquiz.UserRole;
+import com.matsveyeu.studentquiz.enums.UserRole;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
