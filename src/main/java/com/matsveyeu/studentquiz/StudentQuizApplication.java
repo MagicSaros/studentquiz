@@ -3,8 +3,11 @@ package com.matsveyeu.studentquiz;
 import com.matsveyeu.studentquiz.entity.Category;
 import com.matsveyeu.studentquiz.entity.Question;
 import com.matsveyeu.studentquiz.entity.Quiz;
+import com.matsveyeu.studentquiz.entity.User;
+import com.matsveyeu.studentquiz.enums.UserRole;
 import com.matsveyeu.studentquiz.repository.CategoryRepository;
 import com.matsveyeu.studentquiz.repository.QuizRepository;
+import com.matsveyeu.studentquiz.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -24,6 +27,9 @@ public class StudentQuizApplication implements CommandLineRunner {
     @Autowired
     private CategoryRepository categoryRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     public static void main(String[] args) {
         SpringApplication.run(StudentQuizApplication.class, args);
     }
@@ -31,6 +37,7 @@ public class StudentQuizApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         quizRepository.deleteAll();
+        userRepository.deleteAll();
 
         Category category1 = new Category();
         category1.setName("Java");
@@ -58,6 +65,27 @@ public class StudentQuizApplication implements CommandLineRunner {
         quiz.setCategory(category1);
         quiz.setName("Java quiz");
         quiz.setQuestions(questions);
+
+        User teacher = new User.Builder()
+                .setFirstName("Dima")
+                .setLastName("Gubich")
+                .setRole(UserRole.TEACHER)
+                .setEmail("zeus_is_back@gmail.com")
+                .setLogin("nagibator9k")
+                .setPassword("navi_v_finale")
+                .build();
+
+        User student = new User.Builder()
+                .setFirstName("John")
+                .setLastName("Doe")
+                .setRole(UserRole.STUDENT)
+                .setEmail("john_doe@gmail.com")
+                .setLogin("doe")
+                .setPassword("doe123")
+                .build();
+
+        userRepository.save(teacher);
+        userRepository.save(student);
 
         quizRepository.save(quiz);
     }

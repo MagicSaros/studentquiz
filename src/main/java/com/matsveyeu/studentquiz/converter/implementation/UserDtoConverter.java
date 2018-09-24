@@ -3,7 +3,9 @@ package com.matsveyeu.studentquiz.converter.implementation;
 import com.matsveyeu.studentquiz.converter.DtoConverter;
 import com.matsveyeu.studentquiz.dto.UserDto;
 import com.matsveyeu.studentquiz.entity.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserDtoConverter implements DtoConverter<User, UserDto> {
 
     @Override
