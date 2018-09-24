@@ -1,4 +1,4 @@
-package com.matsveyeu.studentquiz;
+package com.matsveyeu.studentquiz.enums;
 
 public enum UserRole {
 

@@ -1,7 +1,7 @@
 package com.matsveyeu.studentquiz.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.matsveyeu.studentquiz.UserRole;
+import com.matsveyeu.studentquiz.enums.UserRole;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;

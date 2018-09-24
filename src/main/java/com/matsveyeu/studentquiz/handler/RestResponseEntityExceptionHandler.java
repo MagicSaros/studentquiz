@@ -2,6 +2,7 @@ package com.matsveyeu.studentquiz.handler;
 
 import com.matsveyeu.studentquiz.exception.ApiError;
 import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
+import com.matsveyeu.studentquiz.exception.IllegalOperationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,18 @@ public class RestResponseEntityExceptionHandler extends ResponseEntityExceptionH
     public ResponseEntity<ApiError> handleEntityNotFound(Exception e) {
         ApiError apiError = new ApiError.Builder()
                 .setTitle("Entity not found")
+                .setStatus(HttpStatus.NOT_FOUND.value())
+                .setMessage(e.getMessage())
+                .setTimestamp(new Date().getTime())
+                .setDeveloperMessage(e.getClass().getName())
+                .build();
+        return new ResponseEntity<>(apiError, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler({IllegalOperationException.class})
+    public ResponseEntity<ApiError> handleIllegalOperation(Exception e) {
+        ApiError apiError = new ApiError.Builder()
+                .setTitle("Illegal operation")
                 .setStatus(HttpStatus.NOT_FOUND.value())
                 .setMessage(e.getMessage())
                 .setTimestamp(new Date().getTime())
