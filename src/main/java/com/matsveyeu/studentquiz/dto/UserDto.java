@@ -1,6 +1,5 @@
 package com.matsveyeu.studentquiz.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.matsveyeu.studentquiz.enums.UserRole;
 
 import javax.validation.constraints.Email;
@@ -84,7 +83,6 @@ public class UserDto {
         this.login = login;
     }
 
-    @JsonIgnore
     @NotEmpty
     public String getPassword() {
         return password;
