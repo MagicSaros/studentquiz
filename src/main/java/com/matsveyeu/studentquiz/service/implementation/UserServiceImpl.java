@@ -34,6 +34,12 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new EntityNotFoundException("User entity is null");
         }
+
+        Collection<User> existentUsers = userRepository.findUsersByLoginOrEmail(user.getLogin(), user.getEmail());
+        if (existentUsers.size() > 0) {
+            throw new IllegalOperationException("User is already exist");
+        }
+
         return userRepository.save(user);
     }
 
