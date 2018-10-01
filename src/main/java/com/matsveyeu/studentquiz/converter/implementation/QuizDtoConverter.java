@@ -24,7 +24,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         }
 
         QuizDto dto = new QuizDto();
-        dto.setId(quiz.getId());
+        dto.setQuizId(quiz.getId());
         dto.setName(quiz.getName());
         dto.setCategory(categoryDtoConverter.fromEntityToDto(quiz.getCategory()));
         dto.setQuestions(quiz
@@ -42,7 +42,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         }
 
         Quiz quiz = new Quiz();
-        quiz.setId(dto.getId());
+        quiz.setId(dto.getQuizId());
         quiz.setName(dto.getName());
         quiz.setCategory(categoryDtoConverter.fromDtoToEntity(dto.getCategory()));
         quiz.setQuestions(dto
