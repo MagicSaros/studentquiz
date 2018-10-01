@@ -1,11 +1,13 @@
 package com.matsveyeu.studentquiz.dto;
 
+import org.springframework.hateoas.ResourceSupport;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-public class QuizDto {
+public class QuizDto extends ResourceSupport {
 
     private String id;
     private String name;
@@ -13,11 +15,11 @@ public class QuizDto {
 
     private Set<QuestionDto> questions;
 
-    public String getId() {
+    public String getQuizId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setQuizId(String id) {
         this.id = id;
     }
 

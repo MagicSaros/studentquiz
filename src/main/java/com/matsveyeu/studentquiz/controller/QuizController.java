@@ -5,6 +5,9 @@ import com.matsveyeu.studentquiz.dto.QuizDto;
 import com.matsveyeu.studentquiz.entity.Quiz;
 import com.matsveyeu.studentquiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.Resource;
+import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.Collection;
 import java.util.stream.Collectors;
+
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
+import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("api/quizzes")
@@ -23,43 +29,58 @@ public class QuizController {
     @Autowired
     private QuizDtoConverter quizDtoConverter;
 
-    @GetMapping("/{id}")
-    public ResponseEntity<QuizDto> getQuiz(@PathVariable String id) {
+    @GetMapping(value = "/{id}", produces = {"application/hal+json"})
+    public Resource<QuizDto> getQuiz(@PathVariable String id) {
         Quiz quiz = quizService.findById(id);
         QuizDto dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(id)).withSelfRel();
+        dto.add(selfLink);
+
+        return new Resource<>(dto, selfLink);
     }
 
-    @GetMapping
-    public ResponseEntity<Collection<QuizDto>> getAllQuizzes() {
+    @GetMapping(produces = {"application/hal+json"})
+    public Resources<QuizDto> getAllQuizzes() {
         Collection<QuizDto> quizzes = quizService
                 .findAll()
                 .stream()
                 .map(quizDtoConverter::fromEntityToDto)
+                .peek(dto -> {
+                    Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+                    dto.add(selfLink);
+                })
                 .collect(Collectors.toSet());
 
-        return new ResponseEntity<>(quizzes, HttpStatus.OK);
+        Link selfLink = linkTo(methodOn(QuizController.class).getAllQuizzes()).withSelfRel();
+
+        return new Resources<>(quizzes, selfLink);
     }
 
-    @PostMapping
-    public ResponseEntity<QuizDto> createQuiz(@Valid @RequestBody QuizDto dto) {
+    @PostMapping(produces = {"application/hal+json"})
+    public Resource<QuizDto> createQuiz(@Valid @RequestBody QuizDto dto) {
         Quiz quiz = quizDtoConverter.fromDtoToEntity(dto);
         quiz = quizService.add(quiz);
         dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+        dto.add(selfLink);
+
+        return new Resource<>(dto, selfLink);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<QuizDto> updateQuiz(@PathVariable String id, @Valid @RequestBody QuizDto dto) {
+    @PutMapping(value = "/{id}", produces = {"application/hal+json"})
+    public Resource<QuizDto> updateQuiz(@PathVariable String id, @Valid @RequestBody QuizDto dto) {
         quizService.findById(id);
 
         Quiz quiz = quizDtoConverter.fromDtoToEntity(dto);
         quiz = quizService.update(quiz);
         dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        return new ResponseEntity<>(dto, HttpStatus.CREATED);
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+        dto.add(selfLink);
+
+        return new Resource<>(dto, selfLink);
     }
 
     @DeleteMapping("/{id}")
