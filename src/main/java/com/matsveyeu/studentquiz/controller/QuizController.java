@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -34,10 +32,14 @@ public class QuizController {
         Quiz quiz = quizService.findById(id);
         QuizDto dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(id)).withSelfRel();
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(id)).withSelfRel().withType("GET");
+        Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
+        Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
         dto.add(selfLink);
+        dto.add(updateLink);
+        dto.add(deleteLink);
 
-        return new Resource<>(dto, selfLink);
+        return new Resource<>(dto, selfLink, updateLink, deleteLink);
     }
 
     @GetMapping(produces = {"application/hal+json"})
@@ -47,8 +49,12 @@ public class QuizController {
                 .stream()
                 .map(quizDtoConverter::fromEntityToDto)
                 .peek(dto -> {
-                    Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+                    Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
+                    Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
+                    Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
                     dto.add(selfLink);
+                    dto.add(updateLink);
+                    dto.add(deleteLink);
                 })
                 .collect(Collectors.toSet());
 
@@ -63,8 +69,12 @@ public class QuizController {
         quiz = quizService.add(quiz);
         dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
+        Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
+        Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
         dto.add(selfLink);
+        dto.add(updateLink);
+        dto.add(deleteLink);
 
         return new Resource<>(dto, selfLink);
     }
@@ -77,19 +87,26 @@ public class QuizController {
         quiz = quizService.update(quiz);
         dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel();
+        Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
+        Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
+        Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
         dto.add(selfLink);
+        dto.add(updateLink);
+        dto.add(deleteLink);
 
         return new Resource<>(dto, selfLink);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<QuizDto> deleteQuiz(@PathVariable String id) {
+    public Resource<QuizDto> deleteQuiz(@PathVariable String id) {
         Quiz quiz = quizService.findById(id);
         quizService.remove(quiz);
 
         QuizDto dto = quizDtoConverter.fromEntityToDto(quiz);
 
-        return new ResponseEntity<>(dto, HttpStatus.OK);
+        Link createLink = linkTo(QuizController.class).withRel("create").withType("POST");
+        dto.add(createLink);
+
+        return new Resource<>(dto, createLink);
     }
 }
