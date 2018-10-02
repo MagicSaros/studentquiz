@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -35,9 +36,7 @@ public class QuizController {
         Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(id)).withSelfRel().withType("GET");
         Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
         Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
-        dto.add(selfLink);
-        dto.add(updateLink);
-        dto.add(deleteLink);
+        dto.add(selfLink, updateLink, deleteLink);
 
         return new Resource<>(dto, selfLink, updateLink, deleteLink);
     }
@@ -52,9 +51,7 @@ public class QuizController {
                     Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
                     Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
                     Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
-                    dto.add(selfLink);
-                    dto.add(updateLink);
-                    dto.add(deleteLink);
+                    dto.add(selfLink, updateLink, deleteLink);
                 })
                 .collect(Collectors.toSet());
 
@@ -64,6 +61,7 @@ public class QuizController {
     }
 
     @PostMapping(produces = {"application/hal+json"})
+    @ResponseStatus(HttpStatus.CREATED)
     public Resource<QuizDto> createQuiz(@Valid @RequestBody QuizDto dto) {
         Quiz quiz = quizDtoConverter.fromDtoToEntity(dto);
         quiz = quizService.add(quiz);
@@ -72,9 +70,7 @@ public class QuizController {
         Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
         Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
         Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
-        dto.add(selfLink);
-        dto.add(updateLink);
-        dto.add(deleteLink);
+        dto.add(selfLink, updateLink, deleteLink);
 
         return new Resource<>(dto, selfLink);
     }
@@ -90,9 +86,7 @@ public class QuizController {
         Link selfLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withSelfRel().withType("GET");
         Link updateLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("update").withType("PUT");
         Link deleteLink = linkTo(QuizController.class).slash(dto.getQuizId()).withRel("delete").withType("DELETE");
-        dto.add(selfLink);
-        dto.add(updateLink);
-        dto.add(deleteLink);
+        dto.add(selfLink, updateLink, deleteLink);
 
         return new Resource<>(dto, selfLink);
     }
