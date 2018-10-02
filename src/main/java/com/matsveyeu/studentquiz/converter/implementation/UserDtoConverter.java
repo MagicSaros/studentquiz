@@ -32,7 +32,7 @@ public class UserDtoConverter implements DtoConverter<User, UserDto> {
         }
 
         return new User.Builder()
-                .setId(dto.getId())
+                .setId(dto.getUserId())
                 .setFirstName(dto.getFirstName())
                 .setLastName(dto.getLastName())
                 .setEmail(dto.getEmail())

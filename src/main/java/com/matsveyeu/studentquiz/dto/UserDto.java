@@ -1,12 +1,13 @@
 package com.matsveyeu.studentquiz.dto;
 
 import com.matsveyeu.studentquiz.enums.UserRole;
+import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-public class UserDto {
+public class UserDto extends ResourceSupport {
 
     private String id;
     private String firstName;
@@ -30,11 +31,11 @@ public class UserDto {
         this.password = builder.password;
     }
 
-    public String getId() {
+    public String getUserId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setUserId(String id) {
         this.id = id;
     }
 
