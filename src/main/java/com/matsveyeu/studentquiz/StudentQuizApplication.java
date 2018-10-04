@@ -35,7 +35,7 @@ public class StudentQuizApplication implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
         quizRepository.deleteAll();
         userRepository.deleteAll();
 
@@ -50,40 +50,88 @@ public class StudentQuizApplication implements CommandLineRunner {
         categoryRepository.save(category2);
         categoryRepository.save(category3);
 
-        Question question = new Question();
-        question.setText("What is java?");
-        Map<String, Boolean> options = new HashMap<>();
-        options.put("Programming language", true);
-        options.put("Coffee type", false);
-        options.put("Drugs", false);
-        question.setOptions(options);
+        Question question1 = new Question();
+        question1.setText("What is the size of byte variable?");
+        Map<String, Boolean> options1 = new HashMap<>();
+        options1.put("8 bit", true);
+        options1.put("16 bit", false);
+        options1.put("32 bit", false);
+        options1.put("64 bit", false);
+        question1.setOptions(options1);
+
+        Question question2 = new Question();
+        question2.setText("What is synchronization?");
+        Map<String, Boolean> options2 = new HashMap<>();
+        options2.put("Synchronization is the process of writing the state of an object to another object", false);
+        options2.put("Synchronization is the capability to control the access of multiple threads to shared resources", true);
+        options2.put("Synchronization is the process of writing the state of an object to byte stream", false);
+        question2.setOptions(options2);
+
+        Question question3 = new Question();
+        question3.setText("What is the size of int variable?");
+        Map<String, Boolean> options3 = new HashMap<>();
+        options3.put("8 bit", false);
+        options3.put("16 bit", false);
+        options3.put("32 bit", true);
+        options3.put("64 bit", false);
+        question3.setOptions(options3);
+
+        Question question4 = new Question();
+        question4.setText("Method Overriding is an example of");
+        Map<String, Boolean> options4 = new HashMap<>();
+        options4.put("Static Binding", true);
+        options4.put("Dynamic Binding", false);
+        options4.put("Parallel Binding", false);
+        question4.setOptions(options4);
+
+        Question question5 = new Question();
+        question5.setText("What is function overloading?");
+        Map<String, Boolean> options5 = new HashMap<>();
+        options5.put("Methods with same name but different parameters", true);
+        options5.put("Methods with same name but different return types", false);
+        options5.put("Methods with same name, same parameter types but different parameter names", false);
+        question5.setOptions(options5);
 
         Set<Question> questions = new HashSet<>();
-        questions.add(question);
+        questions.add(question1);
+        questions.add(question2);
+        questions.add(question3);
+        questions.add(question4);
+        questions.add(question5);
 
         Quiz quiz = new Quiz();
         quiz.setCategory(category1);
-        quiz.setName("Java quiz");
+        quiz.setName("Java quiz #1");
         quiz.setQuestions(questions);
 
+        User admin = new User.Builder()
+                .setFirstName("Alex")
+                .setLastName("Martin")
+                .setRole(UserRole.ADMIN)
+                .setEmail("alexmartin@yopmail.com")
+                .setLogin("AleX")
+                .setPassword("alexadm1n")
+                .build();
+
         User teacher = new User.Builder()
-                .setFirstName("Dima")
-                .setLastName("Gubich")
+                .setFirstName("Adam")
+                .setLastName("Clark")
                 .setRole(UserRole.TEACHER)
-                .setEmail("zeus_is_back@gmail.com")
-                .setLogin("nagibator9k")
-                .setPassword("navi_v_finale")
+                .setEmail("adamclark@yopmail.com")
+                .setLogin("AdamClark")
+                .setPassword("adamclark")
                 .build();
 
         User student = new User.Builder()
                 .setFirstName("John")
                 .setLastName("Doe")
                 .setRole(UserRole.STUDENT)
-                .setEmail("john_doe@gmail.com")
-                .setLogin("doe")
-                .setPassword("doe123")
+                .setEmail("johndoe@yopmail.com")
+                .setLogin("JohnDoe")
+                .setPassword("johndoe")
                 .build();
 
+        userRepository.save(admin);
         userRepository.save(teacher);
         userRepository.save(student);
 
