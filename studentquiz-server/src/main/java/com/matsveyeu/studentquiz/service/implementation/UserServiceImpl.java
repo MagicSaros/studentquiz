@@ -55,4 +55,11 @@ public class UserServiceImpl implements UserService {
         }
         userRepository.delete(user);
     }
+
+    @Override
+    public User findByLogin(String login) {
+        return userRepository
+                .findUserByLogin(login)
+                .orElseThrow(() -> new EntityNotFoundException("User does not exist"));
+    }
 }

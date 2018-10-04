@@ -3,6 +3,7 @@ package com.matsveyeu.studentquiz.converter.implementation;
 import com.matsveyeu.studentquiz.converter.DtoConverter;
 import com.matsveyeu.studentquiz.dto.QuizDto;
 import com.matsveyeu.studentquiz.entity.Quiz;
+import com.matsveyeu.studentquiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,9 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
     @Autowired
     private CategoryDtoConverter categoryDtoConverter;
 
+    @Autowired
+    private UserService userService;
+
     @Override
     public QuizDto fromEntityToDto(final Quiz quiz) {
         if (quiz == null) {
@@ -27,6 +31,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         dto.setQuizId(quiz.getId());
         dto.setName(quiz.getName());
         dto.setCategory(categoryDtoConverter.fromEntityToDto(quiz.getCategory()));
+        dto.setAuthorLogin(quiz.getAuthor().getLogin());
         dto.setQuestions(quiz
                 .getQuestions()
                 .stream()
@@ -45,6 +50,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         quiz.setId(dto.getQuizId());
         quiz.setName(dto.getName());
         quiz.setCategory(categoryDtoConverter.fromDtoToEntity(dto.getCategory()));
+        quiz.setAuthor(userService.findByLogin(dto.getAuthorLogin()));
         quiz.setQuestions(dto
                 .getQuestions()
                 .stream()

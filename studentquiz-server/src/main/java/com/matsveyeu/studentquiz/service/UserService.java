@@ -15,4 +15,6 @@ public interface UserService {
     User update(User user);
 
     void remove(User user);
+
+    User findByLogin(String login);
 }

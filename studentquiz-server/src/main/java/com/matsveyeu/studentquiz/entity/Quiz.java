@@ -10,6 +10,7 @@ public class Quiz {
     private String id;
     private String name;
     private Category category;
+    private User author;
     private Set<Question> questions;
 
     public String getId() {
@@ -36,6 +37,14 @@ public class Quiz {
         this.category = category;
     }
 
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
     public Set<Question> getQuestions() {
         return questions;
     }
@@ -56,6 +65,7 @@ public class Quiz {
                 .append(id, quiz.id)
                 .append(name, quiz.name)
                 .append(category, quiz.category)
+                .append(author, quiz.author)
                 .append(questions, quiz.questions)
                 .isEquals();
     }
@@ -66,6 +76,7 @@ public class Quiz {
                 .append(id)
                 .append(name)
                 .append(category)
+                .append(author)
                 .append(questions)
                 .toHashCode();
     }
@@ -73,9 +84,10 @@ public class Quiz {
     @Override
     public String toString() {
         return "Quiz{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", name='" + name + '\'' +
                 ", category=" + category +
+                ", author=" + author +
                 ", questions=" + questions +
                 '}';
     }
