@@ -6,12 +6,9 @@ import com.matsveyeu.studentquiz.exception.IllegalOperationException;
 import com.matsveyeu.studentquiz.repository.UserRepository;
 import com.matsveyeu.studentquiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Example;
-import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
