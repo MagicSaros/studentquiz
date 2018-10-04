@@ -109,7 +109,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void createUser() throws Exception {
+    public void createUserTest() throws Exception {
         final String url = URL_PREFIX;
 
         User user = users.get(0);
@@ -133,7 +133,7 @@ public class UserControllerTest {
     }
 
     @Test
-    public void updateUser() throws Exception {
+    public void updateUserTest() throws Exception {
         final String url = URL_PREFIX + "/{id}";
 
         User user = users.get(0);
