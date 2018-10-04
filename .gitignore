@@ -27,7 +27,7 @@ hs_err_pid*
 .idea
 
 # Maven files
-/studentquiz-client/target
+target
 .mvn
 mvnw
 mvnw.cmd
@@ -35,13 +35,13 @@ mvnw.cmd
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/studentquiz-client/node_modules
+node_modules
 
 # testing
-/studentquiz-client/coverage
+coverage
 
 # production
-/studentquiz-client/build
+build
 
 # misc
 .DS_Store
