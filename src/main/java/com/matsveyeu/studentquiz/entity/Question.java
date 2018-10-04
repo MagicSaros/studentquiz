@@ -1,5 +1,6 @@
 package com.matsveyeu.studentquiz.entity;
 
+import com.matsveyeu.studentquiz.enums.QuestionType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 
@@ -8,6 +9,7 @@ import java.util.Map;
 public class Question {
 
     private String text;
+    private QuestionType type;
     private Map<String, Boolean> options;
 
     public String getText() {
@@ -16,6 +18,14 @@ public class Question {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public QuestionType getType() {
+        return type;
+    }
+
+    public void setType(QuestionType type) {
+        this.type = type;
     }
 
     public Map<String, Boolean> getOptions() {
@@ -36,6 +46,7 @@ public class Question {
 
         return new EqualsBuilder()
                 .append(text, question.text)
+                .append(type, question.type)
                 .append(options, question.options)
                 .isEquals();
     }
@@ -45,6 +56,7 @@ public class Question {
         return new HashCodeBuilder(17, 37)
                 .append(text)
                 .append(options)
+                .append(type)
                 .toHashCode();
     }
 
@@ -52,6 +64,7 @@ public class Question {
     public String toString() {
         return "Question{" +
                 ", text='" + text + '\'' +
+                ", type='" + type + '\'' +
                 ", options=" + options +
                 '}';
     }

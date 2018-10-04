@@ -15,6 +15,7 @@ public class QuestionDtoConverter implements DtoConverter<Question, QuestionDto>
         }
 
         QuestionDto dto = new QuestionDto();
+        dto.setType(question.getType());
         dto.setText(question.getText());
         dto.setOptions(question.getOptions());
         return dto;
@@ -28,6 +29,7 @@ public class QuestionDtoConverter implements DtoConverter<Question, QuestionDto>
 
         Question question = new Question();
         question.setText(dto.getText());
+        question.setType(dto.getType());
         question.setOptions(dto.getOptions());
         return question;
     }

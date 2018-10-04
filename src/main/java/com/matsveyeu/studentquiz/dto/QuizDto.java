@@ -12,6 +12,7 @@ public class QuizDto extends ResourceSupport {
     private String id;
     private String name;
     private CategoryDto category;
+    private String authorLogin;
 
     private Set<QuestionDto> questions;
 
@@ -39,6 +40,15 @@ public class QuizDto extends ResourceSupport {
 
     public void setCategory(@NotNull CategoryDto category) {
         this.category = category;
+    }
+
+    @NotEmpty
+    public String getAuthorLogin() {
+        return authorLogin;
+    }
+
+    public void setAuthorLogin(String authorLogin) {
+        this.authorLogin = authorLogin;
     }
 
     @NotNull
