@@ -2,11 +2,11 @@ import axios from 'axios';
 
 class QuizService {
     constructor() {
-        this.baseUrl = 'http://localhost:8080/api';
+        this.baseUrl = 'http://localhost:8080/api/quizzes';
     }
 
     getAllQuizzes() {
-        let url = this.baseUrl + '/quizzes';
+        let url = this.baseUrl;
         let config = {
             headers: {
                 'Accept': 'application/hal+json'
@@ -28,7 +28,7 @@ class QuizService {
     }
 
     getQuiz(id) {
-        let url = this.baseUrl + `/quizzes/${id}`;
+        let url = this.baseUrl + `/${id}`;
         let config = {
             headers: {
                 'Accept': 'application/hal+json'
