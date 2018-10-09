@@ -20,6 +20,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
 @RestController
 @RequestMapping("api/quizzes")
+@CrossOrigin
 public class QuizController {
 
     @Autowired
