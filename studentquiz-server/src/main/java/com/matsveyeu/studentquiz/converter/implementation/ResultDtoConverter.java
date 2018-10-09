@@ -6,7 +6,9 @@ import com.matsveyeu.studentquiz.entity.Result;
 import com.matsveyeu.studentquiz.service.QuizService;
 import com.matsveyeu.studentquiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ResultDtoConverter implements DtoConverter<Result, ResultDto> {
 
     @Autowired
