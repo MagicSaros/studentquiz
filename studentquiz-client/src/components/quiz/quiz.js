@@ -54,11 +54,11 @@ class Quiz extends Component {
     sendResult(event) {
         event.preventDefault();
         
-        let percantage = this.createResult();
+        let percentage = this.createResult();
         let result = {
             quizId: this.state.quizId,
             userId: null,
-            percantage: percantage
+            percentage: percentage
         }
         
         this.resultService.sendResult(result);
