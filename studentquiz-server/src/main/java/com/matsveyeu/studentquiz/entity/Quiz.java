@@ -2,6 +2,7 @@ package com.matsveyeu.studentquiz.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Set;
 
@@ -11,6 +12,7 @@ public class Quiz {
     private String name;
     private Category category;
     private User author;
+    private Double threshold;
     private Set<Question> questions;
 
     public String getId() {
@@ -45,6 +47,14 @@ public class Quiz {
         this.author = author;
     }
 
+    public Double getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Double threshold) {
+        this.threshold = threshold;
+    }
+
     public Set<Question> getQuestions() {
         return questions;
     }
@@ -66,6 +76,7 @@ public class Quiz {
                 .append(name, quiz.name)
                 .append(category, quiz.category)
                 .append(author, quiz.author)
+                .append(threshold, quiz.threshold)
                 .append(questions, quiz.questions)
                 .isEquals();
     }
@@ -77,18 +88,20 @@ public class Quiz {
                 .append(name)
                 .append(category)
                 .append(author)
+                .append(threshold)
                 .append(questions)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return "Quiz{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", category=" + category +
-                ", author=" + author +
-                ", questions=" + questions +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("name", name)
+                .append("category", category)
+                .append("author", author)
+                .append("threshold", threshold)
+                .append("questions", questions)
+                .toString();
     }
 }

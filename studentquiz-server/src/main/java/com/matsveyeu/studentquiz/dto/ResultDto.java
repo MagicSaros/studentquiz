@@ -2,16 +2,17 @@ package com.matsveyeu.studentquiz.dto;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import java.util.Map;
 
 public class ResultDto extends ResourceSupport {
 
     private String resultId;
-    private String quizId;
-    private String userId;
-    private double percentage;
+    private QuizDto quiz;
+    private UserDto user;
+    private Double percentage;
+    private boolean success;
+    private Map<String, String> answers;
 
     public String getResultId() {
         return resultId;
@@ -22,31 +23,45 @@ public class ResultDto extends ResourceSupport {
     }
 
     @NotNull
-    public String getQuizId() {
-        return quizId;
+    public QuizDto getQuiz() {
+        return quiz;
     }
 
-    public void setQuizId(String quizId) {
-        this.quizId = quizId;
-    }
-
-    @NotNull
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setQuiz(QuizDto quiz) {
+        this.quiz = quiz;
     }
 
     @NotNull
-    @Min(0)
-    @Max(100)
-    public double getPercentage() {
+    public UserDto getUser() {
+        return user;
+    }
+
+    public void setUser(UserDto user) {
+        this.user = user;
+    }
+
+    public Double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(double percentage) {
+    public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    @NotNull
+    public Map<String, String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Map<String, String> answers) {
+        this.answers = answers;
     }
 }

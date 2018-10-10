@@ -2,13 +2,18 @@ package com.matsveyeu.studentquiz.entity;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+
+import java.util.Map;
 
 public class Result {
 
     private String id;
     private Quiz quiz;
     private User user;
-    private double percentage;
+    private Double percentage;
+    private boolean success;
+    private Map<String, String> answers;
 
     public String getId() {
         return id;
@@ -34,12 +39,28 @@ public class Result {
         this.user = user;
     }
 
-    public double getPercentage() {
+    public Double getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(double percentage) {
+    public void setPercentage(Double percentage) {
         this.percentage = percentage;
+    }
+
+    public boolean isSuccess() {
+        return success;
+    }
+
+    public void setSuccess(boolean success) {
+        this.success = success;
+    }
+
+    public Map<String, String> getAnswers() {
+        return answers;
+    }
+
+    public void setAnswers(Map<String, String> answers) {
+        this.answers = answers;
     }
 
     @Override
@@ -48,13 +69,15 @@ public class Result {
 
         if (o == null || getClass() != o.getClass()) return false;
 
-        Result result1 = (Result) o;
+        Result result = (Result) o;
 
         return new EqualsBuilder()
-                .append(percentage, result1.percentage)
-                .append(id, result1.id)
-                .append(quiz, result1.quiz)
-                .append(user, result1.user)
+                .append(percentage, result.percentage)
+                .append(success, result.success)
+                .append(id, result.id)
+                .append(quiz, result.quiz)
+                .append(user, result.user)
+                .append(answers, result.answers)
                 .isEquals();
     }
 
@@ -65,16 +88,20 @@ public class Result {
                 .append(quiz)
                 .append(user)
                 .append(percentage)
+                .append(success)
+                .append(answers)
                 .toHashCode();
     }
 
     @Override
     public String toString() {
-        return "Result{" +
-                "id='" + id + '\'' +
-                ", quiz=" + quiz +
-                ", user=" + user +
-                ", percentage=" + percentage +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("quiz", quiz)
+                .append("user", user)
+                .append("percentage", percentage)
+                .append("success", success)
+                .append("answers", answers)
+                .toString();
     }
 }
