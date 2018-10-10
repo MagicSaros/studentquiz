@@ -115,8 +115,8 @@ public class StudentQuizApplication implements CommandLineRunner {
         question4.setText("Method Overriding is an example of");
         question4.setType(QuestionType.ONE_OPTION);
         Map<String, Boolean> options4 = new HashMap<>();
-        options4.put("Static Binding", true);
-        options4.put("Dynamic Binding", false);
+        options4.put("Static Binding", false);
+        options4.put("Dynamic Binding", true);
         options4.put("Parallel Binding", false);
         question4.setOptions(options4);
 

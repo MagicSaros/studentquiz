@@ -1,25 +1,25 @@
 import React, { Component } from 'react';
-import logo from './quiz.png';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Home from './components/home';
+import QuizzesList from './components/quizzes/list';
+import Quiz from './components/quiz/quiz';
 import './App.css';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <a
-            className="App-link"
-            href="http://localhost:3000"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Student Quiz
-          </a>
-        </header>
-      </div>
-    );
-  }
+	render() {
+		return (
+			<Router>
+				<div className="App">
+					<Switch>
+						<Route exact path="/" component={Home} />
+						<Route exact path="/quizzes" component={QuizzesList} />
+						<Route path="/quizzes/:quizId" component={Quiz} />
+					</Switch>
+				</div>
+			</Router>
+		);
+	}
 }
 
 export default App;
