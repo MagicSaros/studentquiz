@@ -140,6 +140,7 @@ public class StudentQuizApplication implements CommandLineRunner {
         quiz.setCategory(category1);
         quiz.setName("Java quiz #1");
         quiz.setAuthor(teacher);
+        quiz.setThreshold(60D);
         quiz.setQuestions(questions);
 
         quizRepository.save(quiz);

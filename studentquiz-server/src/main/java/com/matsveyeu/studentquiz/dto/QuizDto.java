@@ -2,9 +2,7 @@ package com.matsveyeu.studentquiz.dto;
 
 import org.springframework.hateoas.ResourceSupport;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Set;
 
 public class QuizDto extends ResourceSupport {
@@ -13,6 +11,7 @@ public class QuizDto extends ResourceSupport {
     private String name;
     private CategoryDto category;
     private String authorLogin;
+    private Double threshold;
 
     private Set<QuestionDto> questions;
 
@@ -59,5 +58,13 @@ public class QuizDto extends ResourceSupport {
 
     public void setQuestions(Set<QuestionDto> questions) {
         this.questions = questions;
+    }
+
+    public Double getThreshold() {
+        return threshold;
+    }
+
+    public void setThreshold(Double threshold) {
+        this.threshold = threshold;
     }
 }

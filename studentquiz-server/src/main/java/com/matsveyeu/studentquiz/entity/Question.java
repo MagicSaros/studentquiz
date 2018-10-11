@@ -3,6 +3,7 @@ package com.matsveyeu.studentquiz.entity;
 import com.matsveyeu.studentquiz.enums.QuestionType;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.util.Map;
 
@@ -62,10 +63,10 @@ public class Question {
 
     @Override
     public String toString() {
-        return "Question{" +
-                ", text='" + text + '\'' +
-                ", type='" + type + '\'' +
-                ", options=" + options +
-                '}';
+        return new ToStringBuilder(this)
+                .append("text", text)
+                .append("type", type)
+                .append("options", options)
+                .toString();
     }
 }

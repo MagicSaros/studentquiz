@@ -51,22 +51,22 @@ public class ResultControllerTest {
     @Before
     public void init() {
         Quiz quiz = new Quiz();
-        quiz.setId("1");
+//        quiz.setId("1");
 
         User user = new User();
-        user.setId("1");
+//        user.setId("1");
 
         Result result = new Result();
         result.setId("1");
         result.setQuiz(quiz);
         result.setUser(user);
-        result.setPercentage(100);
+        result.setPercentage(100D);
 
         ResultDto resultDto = new ResultDto();
         resultDto.setResultId("1");
-        resultDto.setQuizId("1");
-        resultDto.setUserId("1");
-        resultDto.setPercentage(100);
+//        resultDto.setQuiz("1");
+//        resultDto.setUser("1");
+        resultDto.setPercentage(100D);
 
         results = new LinkedList<>();
         results.add(result);
@@ -90,8 +90,8 @@ public class ResultControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(jsonPath("$.resultId").value(dto.getResultId()))
-                .andExpect(jsonPath("$.quizId").value(dto.getQuizId()))
-                .andExpect(jsonPath("$.userId").value(dto.getUserId()))
+                .andExpect(jsonPath("$.quizId").value(dto.getQuiz()))
+                .andExpect(jsonPath("$.userId").value(dto.getUser()))
                 .andExpect(jsonPath("$.percentage").value(dto.getPercentage()));
 
         BDDMockito.given(resultService.findById("0")).willThrow(new EntityNotFoundException("Result not found"));
@@ -125,8 +125,8 @@ public class ResultControllerTest {
                 .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.resultId").value(dto.getResultId()))
-                .andExpect(jsonPath("$.quizId").value(dto.getQuizId()))
-                .andExpect(jsonPath("$.userId").value(dto.getUserId()))
+                .andExpect(jsonPath("$.quizId").value(dto.getQuiz()))
+                .andExpect(jsonPath("$.userId").value(dto.getUser()))
                 .andExpect(jsonPath("$.percentage").value(dto.getPercentage()));
     }
 
@@ -151,8 +151,8 @@ public class ResultControllerTest {
                 .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.resultId").value(dto.getResultId()))
-                .andExpect(jsonPath("$.quizId").value(dto.getQuizId()))
-                .andExpect(jsonPath("$.userId").value(dto.getUserId()))
+                .andExpect(jsonPath("$.quizId").value(dto.getQuiz()))
+                .andExpect(jsonPath("$.userId").value(dto.getUser()))
                 .andExpect(jsonPath("$.percentage").value(dto.getPercentage()));
     }
 
@@ -170,8 +170,8 @@ public class ResultControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(CONTENT_TYPE))
                 .andExpect(jsonPath("$.resultId").value(dto.getResultId()))
-                .andExpect(jsonPath("$.quizId").value(dto.getQuizId()))
-                .andExpect(jsonPath("$.userId").value(dto.getUserId()))
+                .andExpect(jsonPath("$.quizId").value(dto.getQuiz()))
+                .andExpect(jsonPath("$.userId").value(dto.getUser()))
                 .andExpect(jsonPath("$.percentage").value(dto.getPercentage()));
 
     }

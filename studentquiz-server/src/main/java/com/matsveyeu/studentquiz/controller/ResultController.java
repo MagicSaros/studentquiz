@@ -35,8 +35,8 @@ public class ResultController {
         ResultDto dto = resultDtoConverter.fromEntityToDto(result);
 
         Link selfLink = linkTo(ResultController.class).slash(dto.getResultId()).withSelfRel().withType("GET");
-        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUserId())).withRel("user").withType("GET");
-        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withRel("quiz").withType("GET");
+        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUser().getUserId())).withRel("user").withType("GET");
+        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuiz().getQuizId())).withRel("quiz").withType("GET");
         dto.add(selfLink, userLink, quizLink);
 
         return new Resource<>(dto, selfLink, userLink, quizLink);
@@ -50,8 +50,8 @@ public class ResultController {
                 .map(resultDtoConverter::fromEntityToDto)
                 .peek(dto -> {
                     Link selfLink = linkTo(ResultController.class).slash(dto.getResultId()).withSelfRel().withType("GET");
-                    Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUserId())).withRel("user").withType("GET");
-                    Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withRel("quiz").withType("GET");
+                    Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUser().getUserId())).withRel("user").withType("GET");
+                    Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuiz().getQuizId())).withRel("quiz").withType("GET");
                     dto.add(selfLink, userLink, quizLink);
                 })
                 .collect(Collectors.toSet());
@@ -69,8 +69,8 @@ public class ResultController {
         dto = resultDtoConverter.fromEntityToDto(result);
 
         Link selfLink = linkTo(ResultController.class).slash(dto.getResultId()).withSelfRel().withType("GET");
-        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUserId())).withRel("user").withType("GET");
-        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withRel("quiz").withType("GET");
+        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUser().getUserId())).withRel("user").withType("GET");
+        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuiz().getQuizId())).withRel("quiz").withType("GET");
         dto.add(selfLink, userLink, quizLink);
 
         return new Resource<>(dto, selfLink, userLink, quizLink);
@@ -85,8 +85,8 @@ public class ResultController {
         dto = resultDtoConverter.fromEntityToDto(result);
 
         Link selfLink = linkTo(ResultController.class).slash(dto.getResultId()).withSelfRel().withType("GET");
-        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUserId())).withRel("user").withType("GET");
-        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuizId())).withRel("quiz").withType("GET");
+        Link userLink = linkTo(methodOn(UserController.class).getUser(dto.getUser().getUserId())).withRel("user").withType("GET");
+        Link quizLink = linkTo(methodOn(QuizController.class).getQuiz(dto.getQuiz().getQuizId())).withRel("quiz").withType("GET");
         dto.add(selfLink, userLink, quizLink);
 
         return new Resource<>(dto, selfLink, userLink, quizLink);

@@ -3,6 +3,7 @@ package com.matsveyeu.studentquiz.entity;
 import com.matsveyeu.studentquiz.enums.UserRole;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
 
 public class User {
 
@@ -117,14 +118,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id='" + id + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", role=" + role +
-                ", login='" + login + '\'' +
-                '}';
+        return new ToStringBuilder(this)
+                .append("id", id)
+                .append("firstName", firstName)
+                .append("lastName", lastName)
+                .append("email", email)
+                .append("role", role)
+                .append("login", login)
+                .append("password", password)
+                .toString();
     }
 
     public static class Builder {
