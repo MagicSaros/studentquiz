@@ -5,6 +5,7 @@ import Home from './components/home';
 import QuizzesList from './components/quizzes/list';
 import Quiz from './components/quiz/quiz';
 import Result from './components/quiz/result';
+import TopAppBar from './components/appBar';
 import './App.css';
 
 class App extends Component {
@@ -12,6 +13,7 @@ class App extends Component {
 		return (
 			<Router>
 				<div className="App">
+					<Route path="/" component={TopAppBar}></Route>
 					<Switch>
 						<Route exact path="/" component={Home} />
 						<Route exact path="/quizzes" component={QuizzesList} />

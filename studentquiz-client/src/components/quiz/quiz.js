@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import Modal from '@material-ui/core/Modal';
+import Typography from '@material-ui/core/Typography';
+import Paper from '@material-ui/core/Paper';
 
 import QuizService from './../../services/quizService';
 import ResultService from './../../services/resultService';
@@ -12,9 +15,16 @@ class Quiz extends Component {
         this.state = {
             quizId: this.props.match.params.quizId,
             quiz: null,
-            answers: {}
+            answers: {},
+            result: {
+                percentage: '',
+                succes: ''
+            },
+            isResultModalOpen: false
         };
         this.getAnswer = this.getAnswer.bind(this);
+        this.handleClose = this.handleClose.bind(this);
+        this.showQuizzesList = this.showQuizzesList.bind(this);
         this.resultService = new ResultService();
         this.quizService = new QuizService();
     }
@@ -22,6 +32,22 @@ class Quiz extends Component {
     render() {
         if (!this.state.quiz) {
             return (<div>No content</div>);
+        }
+
+        let result = this.state.result;
+        let percentage = result.percentage;
+        let color = '#f00';
+        let buttonText = 'Try again';
+        let buttonColor = 'secondary';
+        let handleClick = this.handleClose;
+        let status = 'failure';
+
+        if (result.success) {
+            color = '#0f0';
+            buttonText = 'OK';
+            buttonColor = 'primary';
+            handleClick = this.showQuizzesList;
+            status = 'succes';
         }
 
         return (
@@ -49,6 +75,22 @@ class Quiz extends Component {
                         </Button>
                     </Grid>
                 </Grid>
+                <Modal open={this.state.isResultModalOpen} onClose={this.handleClose} style={modalStyles}>
+                    <Paper style={{ padding: '10%' }}>
+                        <Typography variant='h4' gutterBottom>
+                            Results
+                        </Typography>
+                        <Typography variant='body1' gutterBottom>
+                            Your result is {percentage}%
+                        </Typography>
+                        <Typography variant='body1' gutterBottom>
+                            Status: <span style={{ color: color }}>{status}</span>
+                        </Typography>
+                        <Button variant='outlined' color={buttonColor} onClick={handleClick}>
+                            {buttonText}
+                        </Button>
+                    </Paper>
+                </Modal>
             </div>
         );
     }
@@ -62,13 +104,18 @@ class Quiz extends Component {
 
     async sendResult(event) {
         event.preventDefault();
+
+        let confirmation = window.confirm('Are you sure?');
+        if (!confirmation) {
+            return;
+        }
         
         let answer = {
             quiz: { 
                 quizId: this.state.quizId,
             },
             user: {
-                userId: '5bc44144d550111590c3ba42',
+                userId: '5bc4839fd5501162cc589d50',
             },
             answers: this.state.answers
         }
@@ -87,8 +134,27 @@ class Quiz extends Component {
     }
 
     showResult(result) {
-        this.props.history.push(`/quizzes/${this.state.quizId}/result`, { result: result })
+        this.setState({
+            isResultModalOpen: true,
+            result: result
+        });
     }
+
+    handleClose() {
+        this.setState({ isResultModalOpen: false });
+    }
+
+    showQuizzesList() {
+        this.props.history.push('/quizzes');
+    }
+}
+
+const modalStyles = {
+    position: 'absolute',
+    width: '20%',
+    top: '20%',
+    left: '40%',
+    textAlign: 'center'
 }
 
 export default Quiz;
