@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import Button from '@material-ui/core/Button';
+import Grid from '@material-ui/core/Grid';
 
 import QuizService from './../../services/quizService';
 import ResultService from './../../services/resultService';
@@ -24,22 +26,29 @@ class Quiz extends Component {
 
         return (
             <div>
-                <h2>{this.state.quiz.name}</h2>
-                <br/>
-                <ul>
-                    {
-                        this.state.quiz.questions.map((question, i) => {
-                            return (
-                                <li key={i}>
-                                    <Question question={question} onChange={this.getAnswer}/>
-                                </li>
-                            );
-                        })
-                    }
-                </ul>
-                <button onClick={event => this.sendResult(event)}>
-                    Submit
-                </button>
+                <Grid container spacing={24} justify='center' direction='column' alignItems='center'>
+                    <Grid item xs={6}>
+                        <h2>{this.state.quiz.name}</h2>
+                        {
+                            this.state.quiz.questions.map((question, i) => {
+                                return (
+                                    <div key={i}>
+                                        <Grid container spacing={24} direction='column'>
+                                            <Grid item>
+                                                <Question question={question} onChange={this.getAnswer}/>
+                                            </Grid>
+                                        </Grid>
+                                    </div>
+                                );
+                            })
+                        }
+                    </Grid>
+                    <Grid item>
+                        <Button variant="contained" color="default" onClick={event => this.sendResult(event)}>
+                            Submit
+                        </Button>
+                    </Grid>
+                </Grid>
             </div>
         );
     }
@@ -51,23 +60,22 @@ class Quiz extends Component {
         });
     }
 
-    sendResult(event) {
+    async sendResult(event) {
         event.preventDefault();
         
-        let percentage = this.createResult();
-        let result = {
-            quizId: this.state.quizId,
-            userId: null,
-            percentage: percentage
+        let answer = {
+            quiz: { 
+                quizId: this.state.quizId,
+            },
+            user: {
+                userId: '5bc44144d550111590c3ba42',
+            },
+            answers: this.state.answers
         }
         
-        this.resultService.sendResult(result);
-    }
-
-    createResult() {
-        let questions = this.state.quiz.questions;
-        let answers = this.state.answers;
-        return this.resultService.calculateResult(questions, answers);
+        let result = await this.resultService.sendResult(answer);
+        this.showResult(result);
+        console.log(result);
     }
 
     getAnswer(answer) {
@@ -76,6 +84,10 @@ class Quiz extends Component {
         let answers = this.state.answers;
         answers[questionText] = selectedOption;
         this.setState({ answers: answers });
+    }
+
+    showResult(result) {
+        this.props.history.push(`/quizzes/${this.state.quizId}/result`, { result: result })
     }
 }
 

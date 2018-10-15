@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import RadioGroup from '@material-ui/core/RadioGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Radio from '@material-ui/core/Radio';
+import Divider from '@material-ui/core/Divider';
 
 import Option from './option';
 
@@ -21,15 +25,18 @@ export default class Question extends Component {
                     Object.keys(this.state.question.options).map((option, i) => {
                         return (
                             <div key={i}>
-                                <input type='radio' id={i} name={this.state.question.text} value={option} onClick={event => this.onChange(event)} />
-                                <label htmlFor={i}>
-                                    <Option option={option}/>
-                                </label>
+                                <RadioGroup name={this.state.question.text} value={this.state.selectedOption} onChange={this.onChange}>
+                                    <FormControlLabel
+                                        label={<Option option={option} />}
+                                        value={option}
+                                        control={<Radio />}
+                                    />
+                                </RadioGroup>
                             </div>
                         );
                     })
                 }
-                <hr/>
+                <Divider />
             </div>
         );
     }
