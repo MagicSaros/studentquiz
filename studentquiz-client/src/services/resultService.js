@@ -14,11 +14,11 @@ class ResultService {
             }
         }
 
-        axios
+        return axios
             .post(url, result, config)
             .then(response => {
                 if (response.status === 201) {
-                    console.log(response.data);
+                    return response.data;
                 } else {
                     console.log('Request error');
                 }
