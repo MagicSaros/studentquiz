@@ -1,0 +1,14 @@
+spring:
+  data:
+    mongodb:
+      host: 0.0.0.0
+      port: 27017
+
+security:
+  oauth2:
+    check-token-uri: 'http://localhost:8081/oauth/check_token'
+    client:
+      id: 'studentquiz-client'
+      secret: 'jo709FR49Ft8ft589TF8265fyf595ftY'
+    resource:
+      id: 'studentquiz-resource-server'
