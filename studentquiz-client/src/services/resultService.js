@@ -3,14 +3,17 @@ import axios from 'axios';
 class ResultService {
     constructor() {
         this.baseUrl = 'http://localhost:8080/api/results';
+        this.accessToken = localStorage.getItem('access_token');
     }
 
     sendResult(result) {
         console.log(result);
         let url = this.baseUrl;
+        let token = this.accessToken ? this.accessToken : '';
         let config = {
             headers: {
-                'Accept': 'application/hal+json'
+                'Accept': 'application/hal+json',
+                'Authorization': token
             }
         }
 

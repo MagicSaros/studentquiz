@@ -26,6 +26,7 @@ class TopAppBar extends Component {
         super(props);
         this.state = {
             anchorEl: null,
+            isUserLogged: false
         };
         this.showHome = this.showHome.bind(this);
         this.showQuizzesList = this.showQuizzesList.bind(this);
@@ -41,6 +42,8 @@ class TopAppBar extends Component {
 
     render() {
         const { anchorEl } = this.state;
+        let buttonName = this.state.isUserLogged ? 'Logout' : 'Login';
+        let buttonHref = this.state.isUserLogged ? '/logout' : '/login';
 
         return (
             <AppBar position='static' style={styles.root}>
@@ -66,10 +69,19 @@ class TopAppBar extends Component {
                     <Typography variant='h6' color='inherit' style={styles.grow}>
                         Student Quiz
                     </Typography>
-                    <Button color="inherit">Login</Button>
+                    <Button color="inherit" href={buttonHref}>{buttonName}</Button>
                 </Toolbar>
             </AppBar>
         );
+    }
+
+    componentDidMount() {
+        let userAsJson = localStorage.getItem('current_user');
+        let user = userAsJson ? JSON.parse(userAsJson) : null;
+
+        if (user) {
+            this.setState({ isUserLogged: true });
+        }
     }
 
     showHome() {

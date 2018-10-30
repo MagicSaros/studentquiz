@@ -1,5 +1,0 @@
-security:
-  oauth2:
-    client:
-      id: 'studentquiz-client'
-      secret: 'jo709FR49Ft8ft589TF8265fyf595ftY'

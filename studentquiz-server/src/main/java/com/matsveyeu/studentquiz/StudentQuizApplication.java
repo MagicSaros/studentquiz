@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -31,6 +32,9 @@ public class StudentQuizApplication implements CommandLineRunner {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private PasswordEncoder encoder;
+
     public static void main(String[] args) {
         SpringApplication.run(StudentQuizApplication.class, args);
     }
@@ -46,7 +50,7 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setRole(UserRole.ADMIN)
                 .setEmail("alexmartin@yopmail.com")
                 .setLogin("AleX")
-                .setPassword("alexadm1n")
+                .setPassword(encoder.encode("alexadm1n"))
                 .build();
 
         User teacher = new User.Builder()
@@ -55,7 +59,7 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setRole(UserRole.TEACHER)
                 .setEmail("adamclark@yopmail.com")
                 .setLogin("AdamClark")
-                .setPassword("adamclark")
+                .setPassword(encoder.encode("adamclark"))
                 .build();
 
         User student = new User.Builder()
@@ -64,7 +68,7 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setRole(UserRole.STUDENT)
                 .setEmail("johndoe@yopmail.com")
                 .setLogin("JohnDoe")
-                .setPassword("johndoe")
+                .setPassword(encoder.encode("johndoe"))
                 .build();
 
         userRepository.save(admin);

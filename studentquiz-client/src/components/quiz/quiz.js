@@ -109,13 +109,16 @@ class Quiz extends Component {
         if (!confirmation) {
             return;
         }
+
+        let userAsJson = localStorage.getItem('current_user');
+        let userId = userAsJson ? JSON.parse(userAsJson).userId : '';
         
         let answer = {
             quiz: { 
                 quizId: this.state.quizId,
             },
             user: {
-                userId: '5bc4839fd5501162cc589d50',
+                userId: userId,
             },
             answers: this.state.answers
         }

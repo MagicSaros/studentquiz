@@ -45,7 +45,7 @@ class QuizzesList extends Component {
         let service = new QuizService();
         let quizzes = await service.getAllQuizzes();
         this.setState({
-            quizzes: quizzes
+            quizzes: quizzes ? quizzes : []
         });
     }
 

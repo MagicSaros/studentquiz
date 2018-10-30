@@ -9,6 +9,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -102,5 +104,17 @@ public class UserController {
         dto.add(createLink);
 
         return new Resource<>(dto, createLink);
+    }
+
+    @GetMapping(value = "/me", produces = {"application/hal+json"})
+    public Resource<UserDto> getMe() {
+        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userService.findByLogin(userDetails.getUsername());
+        UserDto dto = userDtoConverter.fromEntityToDto(user);
+
+        Link selfLink = linkTo(UserController.class).slash(dto.getUserId()).withSelfRel().withType("GET");
+        dto.add(selfLink);
+
+        return new Resource<>(dto, selfLink);
     }
 }

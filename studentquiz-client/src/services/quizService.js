@@ -3,13 +3,16 @@ import axios from 'axios';
 class QuizService {
     constructor() {
         this.baseUrl = 'http://localhost:8080/api/quizzes';
+        this.accessToken = localStorage.getItem('access_token');
     }
 
     getAllQuizzes() {
         let url = this.baseUrl;
+        let token = this.accessToken ? this.accessToken : '';
         let config = {
             headers: {
-                'Accept': 'application/hal+json'
+                'Accept': 'application/hal+json',
+                'Authorization': token
             }
         };
 
@@ -29,9 +32,11 @@ class QuizService {
 
     getQuiz(id) {
         let url = this.baseUrl + `/${id}`;
+        let token = this.accessToken ? this.accessToken : '';
         let config = {
             headers: {
-                'Accept': 'application/hal+json'
+                'Accept': 'application/hal+json',
+                'Authorization': token
             }
         };
 
