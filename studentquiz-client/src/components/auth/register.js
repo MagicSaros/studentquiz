@@ -81,7 +81,8 @@ class Register extends Component {
             isFirstNameValid: true,
             isLastNameValid: true,
             isEmailValid: true,
-            isErrorModalOpen: false
+            isErrorModalOpen: false,
+            isSuccessModalOpen: false
         };
         this.authService = new AuthService();
         this.userService = new UserService();
@@ -211,7 +212,7 @@ class Register extends Component {
                         >
                             Login
                         </Button>
-                        <Modal open={this.state.isErrorModalOpen} onClose={this.handleClose} className={classes.modal}>
+                        <Modal open={this.state.isErrorModalOpen} onClose={this.closeErrorModal} className={classes.modal}>
                             <Paper className={classes.modalPaper}>
                                 <Typography variant='h5' gutterBottom>
                                     User is already exist
@@ -226,6 +227,22 @@ class Register extends Component {
                                     Try again
                                 </Button>
                                 or
+                                <Button
+                                    type="button"
+                                    variant="contained"
+                                    color="secondary"
+                                    className={classes.button}
+                                    onClick={this.showLogin}
+                                >
+                                    Login
+                                </Button>
+                            </Paper>
+                        </Modal>
+                        <Modal open={this.state.isSuccessModalOpen} className={classes.modal}>
+                            <Paper className={classes.modalPaper}>
+                                <Typography variant='h5' gutterBottom>
+                                    Registered successfully
+                                </Typography>
                                 <Button
                                     type="button"
                                     variant="contained"
@@ -300,7 +317,6 @@ class Register extends Component {
             })
             .catch(error => {
                 if (error.response) {
-                    console.log(error.response);
                     this.setState({ isErrorModalOpen: true });
                 } else {
                     console.log('Error', error.message);
@@ -315,7 +331,7 @@ class Register extends Component {
         let userAsJson = user ? JSON.stringify(user) : '';
         localStorage.setItem('current_user', userAsJson);
 
-        this.showLogin();
+        this.setState({ isSuccessModalOpen: true });
     }
 
     showLogin() {

@@ -9,6 +9,7 @@ import Register from './components/auth/register';
 import QuizzesList from './components/quizzes/list';
 import Quiz from './components/quiz/quiz';
 import TopAppBar from './components/appBar';
+import ErrorPage from './components/notFound';
 import './App.css';
 
 class App extends Component {
@@ -24,6 +25,7 @@ class App extends Component {
 						<Route path="/register" component={Register} />
 						<PrivateRoute exact path="/quizzes" component={QuizzesList} />
 						<PrivateRoute exact path="/quizzes/:quizId" component={Quiz} />
+							<Route component={ErrorPage} />
 					</Switch>
 				</div>
 			</Router>
