@@ -2,6 +2,7 @@ package com.matsveyeu.studentquiz.service.implementation;
 
 import com.matsveyeu.studentquiz.entity.Quiz;
 import com.matsveyeu.studentquiz.entity.Result;
+import com.matsveyeu.studentquiz.entity.User;
 import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
 import com.matsveyeu.studentquiz.repository.ResultRepository;
 import com.matsveyeu.studentquiz.service.CalculationService;
@@ -64,5 +65,10 @@ public class ResultServiceImpl implements ResultService {
         }
 
         resultRepository.delete(result);
+    }
+
+    @Override
+    public Collection<Result> findByUser(User user) {
+        return resultRepository.findByUser(user);
     }
 }

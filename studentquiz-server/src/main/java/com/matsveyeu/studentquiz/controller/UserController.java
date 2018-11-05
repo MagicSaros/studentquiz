@@ -1,8 +1,12 @@
 package com.matsveyeu.studentquiz.controller;
 
+import com.matsveyeu.studentquiz.converter.implementation.ResultDtoConverter;
 import com.matsveyeu.studentquiz.converter.implementation.UserDtoConverter;
+import com.matsveyeu.studentquiz.dto.ResultDto;
 import com.matsveyeu.studentquiz.dto.UserDto;
+import com.matsveyeu.studentquiz.entity.Result;
 import com.matsveyeu.studentquiz.entity.User;
+import com.matsveyeu.studentquiz.service.ResultService;
 import com.matsveyeu.studentquiz.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.Link;
@@ -29,6 +33,12 @@ public class UserController {
 
     @Autowired
     private UserDtoConverter userDtoConverter;
+
+    @Autowired
+    private ResultService resultService;
+
+    @Autowired
+    private ResultDtoConverter resultDtoConverter;
 
     @GetMapping(value = "/{id}", produces = {"application/hal+json"})
     public Resource<UserDto> getUser(@PathVariable String id) {
@@ -116,5 +126,20 @@ public class UserController {
         dto.add(selfLink);
 
         return new Resource<>(dto, selfLink);
+    }
+
+    @GetMapping(value = "/{id}/results", produces = {"application/hal+json"})
+    public Resources<ResultDto> gerResultsByUser(@PathVariable String id) {
+        User user = userService.findById(id);
+        Collection<ResultDto> results = resultService
+                .findByUser(user)
+                .stream()
+                .map(resultDtoConverter::fromEntityToDto)
+                .collect(Collectors.toList());
+
+        Link selfLink = linkTo(methodOn(UserController.class).gerResultsByUser(id)).withSelfRel().withType("GET");
+        Link userLink = linkTo(UserController.class).slash(id).withRel("user").withType("GET");
+
+        return new Resources<>(results, selfLink, userLink);
     }
 }

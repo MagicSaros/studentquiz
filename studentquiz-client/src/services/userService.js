@@ -26,6 +26,32 @@ class UserService {
                 }
             })
     }
+
+    getUser(userId) {
+        let url = this.baseUrl + `/${userId}`;
+        let token = localStorage.getItem('access_token');
+        let config = {
+            headers: {
+                'Accept': 'application/hal+json',
+                'Authorization': token
+            }
+        }
+
+        return axios.get(url, config);
+    }
+
+    getUserResults(userId) {
+        let url = this.baseUrl + `/${userId}/results`;
+        let token = localStorage.getItem('access_token');
+        let config = {
+            headers: {
+                'Accept': 'application/hal+json',
+                'Authorization': token
+            }
+        }
+
+        return axios.get(url, config);
+    }
 }
 
 export default UserService;
