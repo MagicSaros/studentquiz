@@ -1,5 +1,6 @@
 package com.matsveyeu.studentquiz.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.matsveyeu.studentquiz.enums.UserRole;
 import org.springframework.hateoas.ResourceSupport;
 
@@ -39,7 +40,6 @@ public class UserDto extends ResourceSupport {
         this.id = id;
     }
 
-    @NotEmpty
     public String getFirstName() {
         return firstName;
     }
@@ -48,7 +48,6 @@ public class UserDto extends ResourceSupport {
         this.firstName = firstName;
     }
 
-    @NotEmpty
     public String getLastName() {
         return lastName;
     }
@@ -85,6 +84,7 @@ public class UserDto extends ResourceSupport {
     }
 
     @NotEmpty
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     public String getPassword() {
         return password;
     }

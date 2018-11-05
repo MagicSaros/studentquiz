@@ -37,7 +37,7 @@ public class QuizDto extends ResourceSupport {
         return category;
     }
 
-    public void setCategory(@NotNull CategoryDto category) {
+    public void setCategory(CategoryDto category) {
         this.category = category;
     }
 
@@ -60,6 +60,9 @@ public class QuizDto extends ResourceSupport {
         this.questions = questions;
     }
 
+    @NotNull
+    @Min(0)
+    @Max(100)
     public Double getThreshold() {
         return threshold;
     }
