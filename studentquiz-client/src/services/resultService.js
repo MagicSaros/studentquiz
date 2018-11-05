@@ -7,7 +7,6 @@ class ResultService {
     }
 
     sendResult(result) {
-        console.log(result);
         let url = this.baseUrl;
         let token = this.accessToken ? this.accessToken : '';
         let config = {

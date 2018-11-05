@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Modal from '@material-ui/core/Modal';
 import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
+import { Prompt } from 'react-router';
 
 import QuizService from './../../services/quizService';
 import ResultService from './../../services/resultService';
@@ -53,7 +54,7 @@ class Quiz extends Component {
         return (
             <div>
                 <Grid container spacing={24} justify='center' direction='column' alignItems='center'>
-                    <Grid item xs={6}>
+                    <Grid item xs={12}>
                         <h2>{this.state.quiz.name}</h2>
                         {
                             this.state.quiz.questions.map((question, i) => {
@@ -91,6 +92,10 @@ class Quiz extends Component {
                         </Button>
                     </Paper>
                 </Modal>
+                <Prompt
+                    when={true}
+                    message={location => location.pathname === '/logout' ? true : "Are you sure you want to leave?"}
+                />
             </div>
         );
     }
@@ -125,7 +130,6 @@ class Quiz extends Component {
         
         let result = await this.resultService.sendResult(answer);
         this.showResult(result);
-        console.log(result);
     }
 
     getAnswer(answer) {
