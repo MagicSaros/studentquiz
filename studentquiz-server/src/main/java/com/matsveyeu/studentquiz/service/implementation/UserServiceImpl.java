@@ -1,6 +1,7 @@
 package com.matsveyeu.studentquiz.service.implementation;
 
 import com.matsveyeu.studentquiz.entity.User;
+import com.matsveyeu.studentquiz.enums.UserRole;
 import com.matsveyeu.studentquiz.exception.EntityNotFoundException;
 import com.matsveyeu.studentquiz.exception.IllegalOperationException;
 import com.matsveyeu.studentquiz.repository.UserRepository;
@@ -32,10 +33,13 @@ public class UserServiceImpl implements UserService {
             throw new EntityNotFoundException("User entity is null");
         }
 
-        Collection<User> existentUsers = userRepository.findUsersByLoginOrEmail(user.getLogin(), user.getEmail());
-        if (existentUsers.size() > 0) {
+        if (userRepository
+                .findUserByLoginOrEmail(user.getLogin(), user.getEmail())
+                .isPresent()) {
             throw new IllegalOperationException("User is already exist");
         }
+
+        user.setRole(UserRole.STUDENT);
 
         return userRepository.save(user);
     }
@@ -45,6 +49,25 @@ public class UserServiceImpl implements UserService {
         if (user == null) {
             throw new EntityNotFoundException("User entity is null");
         }
+
+        String newLogin = user.getLogin();
+        String newEmail = user.getEmail();
+
+        User oldUser = findById(user.getId());
+        String oldLogin = oldUser.getLogin();
+        String oldEmail = oldUser.getEmail();
+
+        if (!newLogin.equals(oldLogin) && isLoginUsed(newLogin)) {
+            throw new IllegalOperationException("Login already in use");
+        }
+
+        if (!newEmail.equals(oldEmail) && isEmailUsed(newEmail)) {
+            throw new IllegalOperationException("Email already in use");
+        }
+
+        user.setPassword(oldUser.getPassword());
+        user.setRole(oldUser.getRole());
+
         return userRepository.save(user);
     }
 
@@ -61,5 +84,17 @@ public class UserServiceImpl implements UserService {
         return userRepository
                 .findUserByLogin(login)
                 .orElseThrow(() -> new EntityNotFoundException("User does not exist"));
+    }
+
+    private boolean isLoginUsed(String login) {
+        return userRepository
+                .findUserByLogin(login)
+                .isPresent();
+    }
+
+    private boolean isEmailUsed(String email) {
+        return userRepository
+                .findUserByEmail(email)
+                .isPresent();
     }
 }

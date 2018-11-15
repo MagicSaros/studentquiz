@@ -15,6 +15,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -51,6 +54,9 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setEmail("alexmartin@yopmail.com")
                 .setLogin("AleX")
                 .setPassword(encoder.encode("alexadm1n"))
+                .setBirthday(LocalDate.of(1997, Month.JULY, 12))
+                .setCountry("BY")
+                .setCity("Mogilev")
                 .build();
 
         User teacher = new User.Builder()
@@ -60,6 +66,9 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setEmail("adamclark@yopmail.com")
                 .setLogin("AdamClark")
                 .setPassword(encoder.encode("adamclark"))
+                .setBirthday(LocalDate.of(1998, Month.SEPTEMBER, 3))
+                .setCountry("BY")
+                .setCity("Minsk")
                 .build();
 
         User student = new User.Builder()
@@ -69,6 +78,9 @@ public class StudentQuizApplication implements CommandLineRunner {
                 .setEmail("johndoe@yopmail.com")
                 .setLogin("JohnDoe")
                 .setPassword(encoder.encode("johndoe"))
+                .setBirthday(LocalDate.of(1999, Month.DECEMBER, 23))
+                .setCountry("BY")
+                .setCity("Gomel")
                 .build();
 
         userRepository.save(admin);
@@ -145,6 +157,7 @@ public class StudentQuizApplication implements CommandLineRunner {
         quiz.setName("Java quiz #1");
         quiz.setAuthor(teacher);
         quiz.setThreshold(60D);
+        quiz.setCreated(LocalDateTime.now());
         quiz.setQuestions(questions);
 
         quizRepository.save(quiz);

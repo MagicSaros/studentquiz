@@ -39,13 +39,15 @@ public class ResourceServerConfiguration extends ResourceServerConfigurerAdapter
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .antMatcher("/api/**")
                 .anonymous().disable()
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/api/users/**").hasRole(admin)
                 .antMatchers("/api/users/**").hasAnyRole(admin, teacher, student)
                 .antMatchers("/api/**").hasAnyRole(admin, teacher, student)
                 .antMatchers("/api/config/**").permitAll()
+                .and()
+                .authorizeRequests()
+                .antMatchers(HttpMethod.POST, "/oauth/change_password").permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedHandler(accessDeniedHandler)

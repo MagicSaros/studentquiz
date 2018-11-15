@@ -9,6 +9,7 @@ import com.matsveyeu.studentquiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Service
@@ -39,6 +40,7 @@ public class QuizServiceImpl implements QuizService {
         Category category = quiz.getCategory();
         category = categoryService.findOne(category);
         quiz.setCategory(category);
+        quiz.setCreated(LocalDateTime.now());
 
         return quizRepository.save(quiz);
     }

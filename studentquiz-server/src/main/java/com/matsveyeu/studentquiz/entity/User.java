@@ -5,6 +5,8 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.time.LocalDate;
+
 public class User {
 
     private String id;
@@ -14,6 +16,9 @@ public class User {
     private UserRole role;
     private String login;
     private String password;
+    private LocalDate birthday;
+    private String country;
+    private String city;
 
     public User() {
     }
@@ -26,6 +31,9 @@ public class User {
         this.role = builder.role;
         this.login = builder.login;
         this.password = builder.password;
+        this.birthday = builder.birthday;
+        this.country = builder.country;
+        this.city = builder.city;
     }
 
     public String getId() {
@@ -84,6 +92,30 @@ public class User {
         this.password = password;
     }
 
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -100,6 +132,9 @@ public class User {
                 .append(role, user.role)
                 .append(login, user.login)
                 .append(password, user.password)
+                .append(birthday, user.birthday)
+                .append(country, user.country)
+                .append(city, user.city)
                 .isEquals();
     }
 
@@ -113,6 +148,9 @@ public class User {
                 .append(role)
                 .append(login)
                 .append(password)
+                .append(birthday)
+                .append(country)
+                .append(city)
                 .toHashCode();
     }
 
@@ -125,7 +163,10 @@ public class User {
                 .append("email", email)
                 .append("role", role)
                 .append("login", login)
-                .append("password", password)
+                .append("password", "[PROTECTED]")
+                .append("birthday", birthday)
+                .append("country", country)
+                .append("city", city)
                 .toString();
     }
 
@@ -138,6 +179,9 @@ public class User {
         private UserRole role;
         private String login;
         private String password;
+        private LocalDate birthday;
+        private String country;
+        private String city;
 
         public Builder setId(String id) {
             this.id = id;
@@ -171,6 +215,21 @@ public class User {
 
         public Builder setPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder setBirthday(LocalDate birthday) {
+            this.birthday = birthday;
+            return this;
+        }
+
+        public Builder setCountry(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder setCity(String city) {
+            this.city = city;
             return this;
         }
 

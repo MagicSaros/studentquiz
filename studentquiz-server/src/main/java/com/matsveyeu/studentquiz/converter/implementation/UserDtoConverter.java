@@ -22,6 +22,9 @@ public class UserDtoConverter implements DtoConverter<User, UserDto> {
                 .setRole(user.getRole())
                 .setLogin(user.getLogin())
                 .setPassword(user.getPassword())
+                .setBirthday(user.getBirthday())
+                .setCountry(user.getCountry())
+                .setCity(user.getCity())
                 .build();
     }
 
@@ -39,6 +42,9 @@ public class UserDtoConverter implements DtoConverter<User, UserDto> {
                 .setRole(dto.getRole())
                 .setLogin(dto.getLogin())
                 .setPassword(dto.getPassword())
+                .setBirthday(dto.getBirthday())
+                .setCountry(dto.getCountry())
+                .setCity(dto.getCity())
                 .build();
     }
 }

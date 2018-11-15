@@ -18,35 +18,35 @@ import logo from './../../quiz.png';
 
 const styles = theme => ({
     layout: {
-      width: 'auto',
-      display: 'block', // Fix IE 11 issue.
-      marginLeft: theme.spacing.unit * 3,
-      marginRight: theme.spacing.unit * 3,
-      [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
-        width: 800,
-        marginLeft: 'auto',
-        marginRight: 'auto',
-      },
+        width: 'auto',
+        display: 'block', // Fix IE 11 issue.
+        marginLeft: theme.spacing.unit * 3,
+        marginRight: theme.spacing.unit * 3,
+        [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
+            width: 800,
+            marginLeft: 'auto',
+            marginRight: 'auto',
+            },
     },
     paper: {
-      marginTop: theme.spacing.unit * 8,
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
+        marginTop: theme.spacing.unit * 8,
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: `${theme.spacing.unit * 2}px ${theme.spacing.unit * 3}px ${theme.spacing.unit * 3}px`,
     },
     avatar: {
-      margin: theme.spacing.unit,
-      backgroundColor: '#fff',
-      width: theme.spacing.unit * 25,
-      height: theme.spacing.unit * 25
+        margin: theme.spacing.unit,
+        backgroundColor: '#fff',
+        width: theme.spacing.unit * 25,
+        height: theme.spacing.unit * 25
     },
     form: {
-      width: '100%', // Fix IE 11 issue.
-      marginTop: theme.spacing.unit,
+        width: '100%', // Fix IE 11 issue.
+        marginTop: theme.spacing.unit,
     },
     submit: {
-      marginTop: theme.spacing.unit * 3,
+        marginTop: theme.spacing.unit * 3,
     },
     modal: {
         display: 'flex',
@@ -72,8 +72,6 @@ class Register extends Component {
             login: '',
             password: '',
             passwordRepeated: '',
-            firstName: '',
-            lastName: '',
             email: '',
             isLoginValid: true,
             isPasswordValid: true,
@@ -125,6 +123,20 @@ class Register extends Component {
                                     <FormHelperText id="login-helper-text">Create login, size: 3 - 25</FormHelperText>
                                 </FormControl>
                                 <FormControl margin="normal" required fullWidth>
+                                    <InputLabel htmlFor="email">Email</InputLabel>
+                                    <Input
+                                        id="email"
+                                        name="email"
+                                        type="email"
+                                        value={this.state.email}
+                                        onChange={this.updateField}
+                                        error={!this.state.isEmailValid}
+                                    />
+                                    <FormHelperText id="email-helper-text">Enter your email</FormHelperText>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl margin="normal" required fullWidth>
                                     <InputLabel htmlFor="password">Password</InputLabel>
                                     <Input
                                         id="password"
@@ -149,44 +161,6 @@ class Register extends Component {
                                         autoComplete="current-password"
                                     />
                                     <FormHelperText id="passwordRepeated-helper-text">Repeat your password</FormHelperText>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl margin="normal" required fullWidth>
-                                    <InputLabel htmlFor="email">Email</InputLabel>
-                                    <Input
-                                        id="email"
-                                        name="email"
-                                        type="email"
-                                        value={this.state.email}
-                                        onChange={this.updateField}
-                                        error={!this.state.isEmailValid}
-                                    />
-                                    <FormHelperText id="email-helper-text">Enter your email</FormHelperText>
-                                </FormControl>
-                                <FormControl margin="normal" fullWidth>
-                                    <InputLabel htmlFor="firstName">First name</InputLabel>
-                                    <Input
-                                        id="firstName"
-                                        name="firstName"
-                                        type="text"
-                                        value={this.state.firstName}
-                                        onChange={this.updateField}
-                                        error={!this.state.isFirstNameValid}
-                                    />
-                                    <FormHelperText id="firstName-helper-text">Enter your first name</FormHelperText>
-                                </FormControl>
-                                <FormControl margin="normal" fullWidth>
-                                    <InputLabel htmlFor="lastName">Last name</InputLabel>
-                                    <Input
-                                        id="lastName"
-                                        name="lastName"
-                                        type="text"
-                                        value={this.state.lastName}
-                                        onChange={this.updateField}
-                                        error={!this.state.isLastNameValid}
-                                    />
-                                    <FormHelperText id="lastName-helper-text">Enter your last name</FormHelperText>
                                 </FormControl>
                             </Grid>
                         </Grid>
@@ -301,10 +275,7 @@ class Register extends Component {
         let payload = {
             'login': this.state.login,
             'password': this.state.password,
-            'email': this.state.email,
-            'firstName': this.state.firstName,
-            'lastName': this.state.lastName,
-            'role': 'STUDENT'
+            'email': this.state.email
         }
 
         let user = await this.authService

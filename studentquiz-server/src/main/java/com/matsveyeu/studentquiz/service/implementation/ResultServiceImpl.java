@@ -10,6 +10,7 @@ import com.matsveyeu.studentquiz.service.ResultService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
 
 @Service
@@ -45,6 +46,7 @@ public class ResultServiceImpl implements ResultService {
 
         result.setPercentage(percentage);
         result.setSuccess(percentage >= threshold);
+        result.setTimestamp(LocalDateTime.now());
 
         return resultRepository.save(result);
     }

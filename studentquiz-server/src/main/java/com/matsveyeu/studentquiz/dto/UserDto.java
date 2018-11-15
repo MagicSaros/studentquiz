@@ -1,12 +1,14 @@
 package com.matsveyeu.studentquiz.dto;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.matsveyeu.studentquiz.enums.UserRole;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDate;
 
 public class UserDto extends ResourceSupport {
 
@@ -17,6 +19,10 @@ public class UserDto extends ResourceSupport {
     private UserRole role;
     private String login;
     private String password;
+    private LocalDate birthday;
+    private String country;
+    private String city;
+
 
     public UserDto() {
 
@@ -30,6 +36,9 @@ public class UserDto extends ResourceSupport {
         this.role = builder.role;
         this.login = builder.login;
         this.password = builder.password;
+        this.birthday = builder.birthday;
+        this.country = builder.country;
+        this.city = builder.city;
     }
 
     public String getUserId() {
@@ -65,7 +74,6 @@ public class UserDto extends ResourceSupport {
         this.email = email;
     }
 
-    @NotNull
     public UserRole getRole() {
         return role;
     }
@@ -83,14 +91,39 @@ public class UserDto extends ResourceSupport {
         this.login = login;
     }
 
-    @NotEmpty
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonIgnore
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Past
+    public LocalDate getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(LocalDate birthday) {
+        this.birthday = birthday;
+    }
+
+    @Pattern(regexp = "[a-zA-Z]{2}")
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public static class Builder {
@@ -101,6 +134,9 @@ public class UserDto extends ResourceSupport {
         private UserRole role;
         private String login;
         private String password;
+        private LocalDate birthday;
+        private String country;
+        private String city;
 
         public Builder setId(String id) {
             this.id = id;
@@ -134,6 +170,21 @@ public class UserDto extends ResourceSupport {
 
         public Builder setPassword(String password) {
             this.password = password;
+            return this;
+        }
+
+        public Builder setBirthday(LocalDate birthday) {
+            this.birthday = birthday;
+            return this;
+        }
+
+        public Builder setCountry(String country) {
+            this.country = country;
+            return this;
+        }
+
+        public Builder setCity(String city) {
+            this.city = city;
             return this;
         }
 

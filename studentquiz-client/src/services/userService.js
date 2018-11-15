@@ -40,6 +40,21 @@ class UserService {
         return axios.get(url, config);
     }
 
+    updateUser(payload) {
+        let userId = payload ? payload.userId : '';
+        let url = this.baseUrl + `/${userId}`;
+        let token = localStorage.getItem('access_token');
+        let config = {
+            headers: {
+                'Accept': 'application/hal+json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        }
+
+        return axios.put(url, payload, config);
+    }
+
     getUserResults(userId) {
         let url = this.baseUrl + `/${userId}/results`;
         let token = localStorage.getItem('access_token');

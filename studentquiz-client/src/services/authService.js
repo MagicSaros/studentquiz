@@ -1,10 +1,13 @@
 import axios from 'axios';
 
+import UserService from './userService';
+
 class AuthService {
     constructor() {
         this.baseUrl = 'http://localhost:8080/oauth';
         this.clientId = 'studentquiz-client';
         this.clientSecret = 'jo709FR49Ft8ft589TF8265fyf595ftY';
+        this.userService = new UserService();
     }
 
     performLogin(payload) {
@@ -37,6 +40,29 @@ class AuthService {
         }
 
         return axios.post(url, payload, config)
+    }
+
+    changePassword(payload) {
+        let url = this.baseUrl + '/change_password';
+        let token = localStorage.getItem('access_token');
+        let config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        }
+
+        return axios.post(url, payload, config);
+    }
+
+    async updateCurrentUser() {
+        let user = await this.userService.getCurrentUser();
+
+        if (!user) {
+            return;
+        }
+
+        localStorage.setItem('current_user', JSON.stringify(user));
     }
 }
 
