@@ -33,6 +33,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         dto.setCategory(categoryDtoConverter.fromEntityToDto(quiz.getCategory()));
         dto.setAuthorLogin(quiz.getAuthor().getLogin());
         dto.setThreshold(quiz.getThreshold());
+        dto.setCreated(quiz.getCreated());
         dto.setQuestions(quiz
                 .getQuestions()
                 .stream()
@@ -53,6 +54,7 @@ public class QuizDtoConverter implements DtoConverter<Quiz, QuizDto> {
         quiz.setCategory(categoryDtoConverter.fromDtoToEntity(dto.getCategory()));
         quiz.setAuthor(userService.findByLogin(dto.getAuthorLogin()));
         quiz.setThreshold(dto.getThreshold());
+        quiz.setCreated(dto.getCreated());
         quiz.setQuestions(dto
                 .getQuestions()
                 .stream()

@@ -9,6 +9,7 @@ import TableRow from '@material-ui/core/TableRow';
 import { withStyles } from '@material-ui/core/styles';
 
 import UserService from './../../services/userService';
+import { toFullDateTimeFormat } from './../util';
 
 const styles = theme => ({
     root: {
@@ -56,7 +57,7 @@ class ResultsList extends Component {
                                         return (
                                             <TableRow key={i}>
                                                 <TableCell component="th" scope="row">{result.quiz.name}</TableCell>
-                                                <TableCell numeric>5//11/2018</TableCell>
+                                                <TableCell numeric>{toFullDateTimeFormat(result.timestamp)}</TableCell>
                                                 <TableCell numeric>{result.percentage}%</TableCell>
                                                 <TableCell>{result.success ? 'Success' : 'Failure'}</TableCell>
                                             </TableRow>

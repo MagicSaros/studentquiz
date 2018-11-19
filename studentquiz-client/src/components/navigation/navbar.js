@@ -125,6 +125,7 @@ class Navbar extends Component {
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
         this.showUserResults = this.showUserResults.bind(this);
+        this.showUserSettings = this.showUserSettings.bind(this);
         this.expandAccountSubMenu = this.expandAccountSubMenu.bind(this);
         this.logout = this.logout.bind(this);
     }
@@ -215,7 +216,7 @@ class Navbar extends Component {
                                         </ListItemIcon>
                                         <ListItemText primary="Results"/>
                                     </ListItem>
-                                    <ListItem button className={classes.nested}>
+                                    <ListItem button onClick={this.showUserSettings} className={classes.nested}>
                                         <ListItemIcon>
                                             <SettingsIcon />
                                         </ListItemIcon>
@@ -284,6 +285,10 @@ class Navbar extends Component {
 
     showUserResults() {
         this.props.history.push(`/users/${this.state.user.userId}/results`)
+    }
+
+    showUserSettings() {
+        this.props.history.push(`/users/${this.state.user.userId}/settings`)
     }
 
     expandAccountSubMenu() {

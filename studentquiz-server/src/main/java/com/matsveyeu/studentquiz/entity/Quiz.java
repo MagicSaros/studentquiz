@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class Quiz {
@@ -13,6 +14,7 @@ public class Quiz {
     private Category category;
     private User author;
     private Double threshold;
+    private LocalDateTime created;
     private Set<Question> questions;
 
     public String getId() {
@@ -63,6 +65,14 @@ public class Quiz {
         this.questions = questions;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,6 +88,7 @@ public class Quiz {
                 .append(author, quiz.author)
                 .append(threshold, quiz.threshold)
                 .append(questions, quiz.questions)
+                .append(created, quiz.created)
                 .isEquals();
     }
 
@@ -90,6 +101,7 @@ public class Quiz {
                 .append(author)
                 .append(threshold)
                 .append(questions)
+                .append(created)
                 .toHashCode();
     }
 
@@ -102,6 +114,7 @@ public class Quiz {
                 .append("author", author)
                 .append("threshold", threshold)
                 .append("questions", questions)
+                .append("created", created)
                 .toString();
     }
 }

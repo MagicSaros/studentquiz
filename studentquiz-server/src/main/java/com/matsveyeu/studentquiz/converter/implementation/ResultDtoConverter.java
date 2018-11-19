@@ -39,6 +39,7 @@ public class ResultDtoConverter implements DtoConverter<Result, ResultDto> {
         dto.setUser(userDto);
         dto.setPercentage(result.getPercentage());
         dto.setSuccess(result.isSuccess());
+        dto.setTimestamp(result.getTimestamp());
         dto.setAnswers(result.getAnswers());
         return dto;
     }
@@ -57,6 +58,7 @@ public class ResultDtoConverter implements DtoConverter<Result, ResultDto> {
         result.setUser(user);
         result.setPercentage(dto.getPercentage());
         result.setSuccess(dto.isSuccess());
+        result.setTimestamp(dto.getTimestamp());
         result.setAnswers(dto.getAnswers());
         return result;
     }

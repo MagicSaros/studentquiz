@@ -4,7 +4,6 @@ import com.matsveyeu.studentquiz.converter.implementation.ResultDtoConverter;
 import com.matsveyeu.studentquiz.converter.implementation.UserDtoConverter;
 import com.matsveyeu.studentquiz.dto.ResultDto;
 import com.matsveyeu.studentquiz.dto.UserDto;
-import com.matsveyeu.studentquiz.entity.Result;
 import com.matsveyeu.studentquiz.entity.User;
 import com.matsveyeu.studentquiz.service.ResultService;
 import com.matsveyeu.studentquiz.service.UserService;
@@ -13,6 +12,8 @@ import org.springframework.hateoas.Link;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -118,7 +119,9 @@ public class UserController {
 
     @GetMapping(value = "/me", produces = {"application/hal+json"})
     public Resource<UserDto> getMe() {
-        UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         User user = userService.findByLogin(userDetails.getUsername());
         UserDto dto = userDtoConverter.fromEntityToDto(user);
 
@@ -129,7 +132,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/{id}/results", produces = {"application/hal+json"})
-    public Resources<ResultDto> gerResultsByUser(@PathVariable String id) {
+    public Resources<ResultDto> getResultsByUser(@PathVariable String id) {
         User user = userService.findById(id);
         Collection<ResultDto> results = resultService
                 .findByUser(user)
@@ -137,7 +140,7 @@ public class UserController {
                 .map(resultDtoConverter::fromEntityToDto)
                 .collect(Collectors.toList());
 
-        Link selfLink = linkTo(methodOn(UserController.class).gerResultsByUser(id)).withSelfRel().withType("GET");
+        Link selfLink = linkTo(methodOn(UserController.class).getResultsByUser(id)).withSelfRel().withType("GET");
         Link userLink = linkTo(UserController.class).slash(id).withRel("user").withType("GET");
 
         return new Resources<>(results, selfLink, userLink);

@@ -3,6 +3,7 @@ package com.matsveyeu.studentquiz.dto;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class ResultDto extends ResourceSupport {
@@ -12,6 +13,7 @@ public class ResultDto extends ResourceSupport {
     private UserDto user;
     private Double percentage;
     private boolean success;
+    private LocalDateTime timestamp;
     private Map<String, String> answers;
 
     public String getResultId() {
@@ -63,5 +65,13 @@ public class ResultDto extends ResourceSupport {
 
     public void setAnswers(Map<String, String> answers) {
         this.answers = answers;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
     }
 }

@@ -4,6 +4,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.time.LocalDateTime;
 import java.util.Map;
 
 public class Result {
@@ -13,6 +14,7 @@ public class Result {
     private User user;
     private Double percentage;
     private boolean success;
+    private LocalDateTime timestamp;
     private Map<String, String> answers;
 
     public String getId() {
@@ -63,6 +65,14 @@ public class Result {
         this.answers = answers;
     }
 
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -77,6 +87,7 @@ public class Result {
                 .append(id, result.id)
                 .append(quiz, result.quiz)
                 .append(user, result.user)
+                .append(timestamp, result.timestamp)
                 .append(answers, result.answers)
                 .isEquals();
     }
@@ -89,6 +100,7 @@ public class Result {
                 .append(user)
                 .append(percentage)
                 .append(success)
+                .append(timestamp)
                 .append(answers)
                 .toHashCode();
     }
@@ -101,6 +113,7 @@ public class Result {
                 .append("user", user)
                 .append("percentage", percentage)
                 .append("success", success)
+                .append("timestamp", timestamp)
                 .append("answers", answers)
                 .toString();
     }

@@ -3,6 +3,7 @@ package com.matsveyeu.studentquiz.dto;
 import org.springframework.hateoas.ResourceSupport;
 
 import javax.validation.constraints.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 public class QuizDto extends ResourceSupport {
@@ -12,6 +13,7 @@ public class QuizDto extends ResourceSupport {
     private CategoryDto category;
     private String authorLogin;
     private Double threshold;
+    private LocalDateTime created;
 
     private Set<QuestionDto> questions;
 
@@ -69,5 +71,13 @@ public class QuizDto extends ResourceSupport {
 
     public void setThreshold(Double threshold) {
         this.threshold = threshold;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 }

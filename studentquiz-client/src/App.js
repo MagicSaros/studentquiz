@@ -11,6 +11,7 @@ import QuizzesList from './components/quizzes/list';
 import Quiz from './components/quiz/quiz';
 import UserProfile from './components/profile/userProfile';
 import ResultsList from './components/results/list';
+import Settings from './components/profile/settings';
 import ErrorPage from './components/notFound';
 import './App.css';
 
@@ -35,6 +36,7 @@ class App extends Component {
 							<PrivateRoute exact path="/quizzes/:quizId" component={Quiz} />
 							<PrivateRoute exact path="/users/:userId" component={UserProfile} />
 							<PrivateRoute exact path="/users/:userId/results" component={ResultsList} />
+							<PrivateRoute exact path="/users/:userId/settings" component={Settings} />
 							<Route component={ErrorPage} />
 						</Switch>
 					</div>
