@@ -8,6 +8,7 @@ import Login from './components/auth/login';
 import Logout from './components/auth/logout';
 import Register from './components/auth/register';
 import QuizzesList from './components/quizzes/list';
+import QuizCreation from './components/quizCreation/creation';
 import Quiz from './components/quiz/quiz';
 import UserProfile from './components/profile/userProfile';
 import ResultsList from './components/results/list';
@@ -33,6 +34,7 @@ class App extends Component {
 							<Route path="/logout" component={Logout} />
 							<Route path="/register" component={Register} />
 							<PrivateRoute exact path="/quizzes" component={QuizzesList} />
+							<PrivateRoute exact path="/quizzes/creation" component={QuizCreation} />
 							<PrivateRoute exact path="/quizzes/:quizId" component={Quiz} />
 							<PrivateRoute exact path="/users/:userId" component={UserProfile} />
 							<PrivateRoute exact path="/users/:userId/results" component={ResultsList} />

@@ -53,6 +53,21 @@ class QuizService {
                 console.log(error);
             })
     }
+
+    sendQuiz(payload) {
+        let url = this.baseUrl;
+        let token = this.accessToken ? this.accessToken : '';
+        let config = {
+            headers: {
+                'Accept': 'application/hal+json',
+                'Content-Type': 'application/json',
+                'Authorization': token
+            }
+        }
+
+        return axios.post(url, payload, config);
+    }
+
 }
 
 export default QuizService;
