@@ -14,12 +14,15 @@ import Divider from '@material-ui/core/Divider';
 import Badge from '@material-ui/core/Badge';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
+import BackIcon from '@material-ui/icons/ArrowBack'
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import PersonIcon from '@material-ui/icons/Person';
-import QuizzesListIcon from '@material-ui/icons/AssignmentTurnedIn';
+import QuizzesIcon from '@material-ui/icons/AssignmentTurnedIn';
+import ListIcon from '@material-ui/icons/List'
+import AddIcon from '@material-ui/icons/Create';
 import ResultsIcon from '@material-ui/icons/Assessment';
 import LogoutIcon from '@material-ui/icons/PowerSettingsNew'
 import SettingsIcon from '@material-ui/icons/Settings';
@@ -117,16 +120,20 @@ class Navbar extends Component {
             user: null,
             isMenuOpen: false,
             isUserLogged: false,
-            isAccountSubMenuOpen: false
+            isAccountSubMenuOpen: false,
+            isQuizzesSubMenuOpen: false
         };
         this.showHome = this.showHome.bind(this);
         this.showQuizzesList = this.showQuizzesList.bind(this);
+        this.showQuizzCreation = this.showQuizzCreation.bind(this);
         this.showUserProfile = this.showUserProfile.bind(this);
         this.handleDrawerOpen = this.handleDrawerOpen.bind(this);
         this.handleDrawerClose = this.handleDrawerClose.bind(this);
         this.showUserResults = this.showUserResults.bind(this);
         this.showUserSettings = this.showUserSettings.bind(this);
+        this.goBack = this.goBack.bind(this);
         this.expandAccountSubMenu = this.expandAccountSubMenu.bind(this);
+        this.expandQuizzesSubMenu = this.expandQuizzesSubMenu.bind(this);
         this.logout = this.logout.bind(this);
     }
 
@@ -137,7 +144,8 @@ class Navbar extends Component {
     handleDrawerClose() {
         this.setState({
             isMenuOpen: false,
-            isAccountSubMenuOpen: false
+            isAccountSubMenuOpen: false,
+            isQuizzesSubMenuOpen: false
         });
     };
     
@@ -164,6 +172,9 @@ class Navbar extends Component {
                                 )}
                             >
                                 <MenuIcon />
+                            </IconButton>
+                            <IconButton color="inherit" onClick={this.goBack} title="Back">
+                                <BackIcon />
                             </IconButton>
                             <Typography
                                 component="h1"
@@ -216,11 +227,11 @@ class Navbar extends Component {
                                         </ListItemIcon>
                                         <ListItemText primary="Results"/>
                                     </ListItem>
-                                    <ListItem button onClick={this.showUserSettings} className={classes.nested}>
+                                    <ListItem button onClick={this.showUserSettings} className={classes.nested} disabled>
                                         <ListItemIcon>
                                             <SettingsIcon />
                                         </ListItemIcon>
-                                        <ListItemText primary="Settings"/>
+                                        <ListItemText primary="Settings" />
                                     </ListItem>
                                     <ListItem button onClick={this.logout} className={classes.nested}>
                                         <ListItemIcon>
@@ -231,12 +242,29 @@ class Navbar extends Component {
                                 </List>
                             </Collapse>
 
-                            <ListItem button onClick={this.showQuizzesList}>
+                            <ListItem button onClick={this.expandQuizzesSubMenu}>
                                 <ListItemIcon>
-                                    <QuizzesListIcon />
+                                    <QuizzesIcon />
                                 </ListItemIcon>
                                 <ListItemText primary="Quizzes" />
+                                {this.state.isQuizzesSubMenuOpen ? <ExpandLess /> : <ExpandMore />}
                             </ListItem>
+                            <Collapse in={this.state.isQuizzesSubMenuOpen} timeout="auto" unmountOnExit>
+                                <List component="div" disablePadding>
+                                    <ListItem button onClick={this.showQuizzesList} className={classes.nested}>
+                                        <ListItemIcon>
+                                            <ListIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="All quizzes"/>
+                                    </ListItem>
+                                    <ListItem button onClick={this.showQuizzCreation} className={classes.nested}>
+                                        <ListItemIcon>
+                                            <AddIcon />
+                                        </ListItemIcon>
+                                        <ListItemText primary="Create"/>
+                                    </ListItem>
+                                </List>
+                            </Collapse>
                         </List>
                     </Drawer>
                     <main className={classes.content}>
@@ -274,6 +302,13 @@ class Navbar extends Component {
         );
     }
 
+    showQuizzCreation() {
+        this.setState(
+            { anchorEl: null },
+            () => this.props.history.push('/quizzes/creation')
+        );
+    }
+
     showUserProfile() {
         let userAsJson = localStorage.getItem('current_user');
         let user = JSON.parse(userAsJson);
@@ -291,9 +326,20 @@ class Navbar extends Component {
         this.props.history.push(`/users/${this.state.user.userId}/settings`)
     }
 
+    goBack() {
+        this.props.history.goBack();
+    }
+
     expandAccountSubMenu() {
         this.setState({
             isAccountSubMenuOpen: !this.state.isAccountSubMenuOpen,
+            isMenuOpen: true
+        });
+    }
+
+    expandQuizzesSubMenu() {
+        this.setState({
+            isQuizzesSubMenuOpen: !this.state.isQuizzesSubMenuOpen,
             isMenuOpen: true
         });
     }

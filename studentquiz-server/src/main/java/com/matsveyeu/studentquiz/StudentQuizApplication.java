@@ -9,6 +9,7 @@ import com.matsveyeu.studentquiz.enums.UserRole;
 import com.matsveyeu.studentquiz.repository.CategoryRepository;
 import com.matsveyeu.studentquiz.repository.QuizRepository;
 import com.matsveyeu.studentquiz.repository.UserRepository;
+import com.matsveyeu.studentquiz.service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -30,6 +31,9 @@ public class StudentQuizApplication implements CommandLineRunner {
     private QuizRepository quizRepository;
 
     @Autowired
+    private QuizService quizService;
+
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @Autowired
@@ -46,6 +50,7 @@ public class StudentQuizApplication implements CommandLineRunner {
     public void run(String... args) {
         quizRepository.deleteAll();
         userRepository.deleteAll();
+        categoryRepository.deleteAll();
 
         User admin = new User.Builder()
                 .setFirstName("Alex")

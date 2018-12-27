@@ -18,6 +18,19 @@ class ConfigService {
 
         return axios.get(url, config);
     }
+
+    getCategories() {
+        let url = this.baseUrl + '/quizzes/categories';
+        let token = this.accessToken ? this.accessToken : '';
+        let config = {
+            headers: {
+                'Accept': 'application/hal+json',
+                'Authorization': token
+            }
+        };
+
+        return axios.get(url, config);
+    }
 }
 
 export default ConfigService;
